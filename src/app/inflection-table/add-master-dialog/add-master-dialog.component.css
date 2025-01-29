@@ -1,0 +1,31 @@
+
+
+.center {
+  width: 50%;
+  margin-left: auto;
+  display: block;
+  margin-right: auto;
+
+}
+
+button {
+  margin-top: 30px ;
+}
+
+.close {
+  float: right;
+  padding: 0px;
+  position: relative;
+  top: -47px;
+  left: 23px;
+  font-size: 23px;
+}
+
+.button-strip{
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.button-strip button{
+  width: 100px;
+}

@@ -1,0 +1,27 @@
+<form>
+  <div class="form-group">
+    <legend>Song Ingestion</legend>
+    <div class="form-row">
+      <label for="urlKey" class="form-label">URL Key</label>
+      <input type="text" class="form-control lang-text" id="urlKey" required [(ngModel)]="model.urlKey" name="urlKey" [formControl]="myControl" [matAutocomplete]="auto">
+    </div>
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)='somethingSelected($event.option.value)'>
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        {{option.key}}
+      </mat-option>
+    </mat-autocomplete>
+
+
+    <div class="button-bar">
+      <button  mat-flat-button (click)="indexSong()">Index Words</button>
+
+      <button  mat-flat-button type="submit" class="btn btn-success" (click)="ingestSong()">Ingest</button>
+      &nbsp;
+      <button  mat-flat-button (click)="resetForm()">Clear</button>
+    </div>
+
+    <br/>
+    <br/>
+    <span class="error">{{model.message}}</span>
+  </div>
+</form>

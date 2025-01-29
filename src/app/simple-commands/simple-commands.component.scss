@@ -1,0 +1,52 @@
+.lang-text{
+  width: 300px;
+}
+
+.form-group{
+  border: 1px solid darkgray;
+  padding: 5px;
+}
+
+.form-group-section {
+  border: 1px solid darkgray;
+  padding: 5px;
+  width: 30%;
+
+}
+
+.halfs-container {
+  display: flex;
+  flex-flow: row nowrap;
+  align-content: space-evenly;
+  justify-content: space-evenly;
+  align-items: center;
+  justify-items: stretch;
+  padding: 5px;
+}
+
+.meaning-textarea{
+  width: 500px;
+}
+
+.selector{
+  width: 400px;
+}
+
+#index{
+  width: 45px;
+}
+
+.form-label {
+  width: 250px;
+}
+
+.form-row{
+  display: flex;
+  flex-flow: row wrap;
+  padding: 5px;
+}
+
+.form-row button{
+  font-size: small;
+}
+

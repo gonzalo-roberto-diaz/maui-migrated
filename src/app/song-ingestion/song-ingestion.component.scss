@@ -1,0 +1,36 @@
+.lang-text{
+  width: 300px;
+}
+
+.meaning-textarea{
+  width: 500px;
+}
+
+.selector{
+  width: 400px;
+}
+
+#index{
+  width: 45px;
+}
+
+.form-label {
+  width: 250px;
+}
+
+.button-bar{
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+}
+
+.button-bar .btn{
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.form-row{
+  display: flex;
+  flex-flow: row nowrap;
+  padding: 5px;
+}

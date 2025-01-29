@@ -1,0 +1,56 @@
+<h2 mat-dialog-title>Update Dictionary</h2>
+
+
+<mat-dialog-content [formGroup]="form">
+
+  <mat-form-field>
+    <input matInput
+           placeholder="Meaning"
+           formControlName="meaning">
+  </mat-form-field>
+
+
+  <br/>
+  <mat-form-field>
+    <input matInput
+           placeholder="Romanized word"
+           formControlName="romanized_word">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput
+           placeholder="Hindi Word"
+           formControlName="hindi_word">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput
+           placeholder="Urdu Word"
+           formControlName="urdu_word">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Part of Speech</mat-label>
+    <mat-select placeholder="Select POS"  formControlName="part_of_speech" [value]="currentPoS.toString()">
+      <mat-option  *ngFor="let partOfSpeech of partOfSpeechComboValues" [value]="partOfSpeech">
+        {{partOfSpeech}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+
+  <button class="mat-raised-button"
+          (click)="close()">
+    Close
+  </button>
+
+  <button class="mat-raised-button mat-primary" #saveButton (click)="submit(form)">
+    Save
+  </button>
+
+</mat-dialog-actions>
+

@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+
+@font-face {
+  font-family: 'Noto Nastaliq Urdu Regular';
+  src: url('assets/fonts/NotoNastaliqUrdu-Regular.ttf')
+}
+
+html, body {
+  height: 100%;
+}
+body {
+  margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
+  border: 3px  solid seagreen;
+}
+
+// this makes the body take really 100% of the space
+div[ng-view]{
+  height: 100%;
+}

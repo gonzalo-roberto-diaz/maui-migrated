@@ -1,0 +1,28 @@
+<div style = 'cursor : pointer'>
+  <i class="fa fa-times close" aria-hidden="true"  (click) = 'close()'></i>
+</div>
+<form #contactForm = 'ngForm'>
+
+  <h4 style = 'text-align : center ; '>Add Master Entry</h4>
+
+  <div>
+    <mat-form-field appearance="outline" style = 'width : 100%'>
+      <mat-label>Hindi</mat-label>
+      <input matInput placeholder="Hindi"  name = 'hindi' ngModel required>
+    </mat-form-field>
+  </div>
+  <div>
+
+    <mat-form-field appearance="outline" style = 'width : 100%'>
+      <mat-label>CS Values</mat-label>
+      <label>
+        <input matInput placeholder="CSValues" name = 'csvalues' ngModel required>
+      </label>
+      <!-- <mat-hint>Hint</mat-hint> -->
+    </mat-form-field>
+  </div>
+  <div class="button-strip">
+    <button class = 'center' mat-raised-button color="primary" [disabled] = 'contactForm.invalid' (click) = 'submit(contactForm)' >Send</button>
+    <button class = 'center' mat-raised-button color="primary" (click) = 'close()' >Cancel</button>
+  </div>
+</form>

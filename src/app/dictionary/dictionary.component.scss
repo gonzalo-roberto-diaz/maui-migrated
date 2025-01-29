@@ -1,0 +1,50 @@
+.main-container{
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.header{
+  flex: 0 0 50px;
+  background-color: #42A948;
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.lang-text{
+  width: 100px;
+  margin: 5px;
+}
+
+.body{
+  flex: 1 0 100%;
+  background-color: orange;
+  overflow-y: auto;
+}
+
+
+.search-panel{
+  flex: 1 0 150px;
+  display: flex;
+  flex-flow: row nowrap;
+  border: 1px solid red;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+}
+
+
+table {
+  background-color: white;
+}
+
+td {
+  padding: 15px;
+  border: 1px solid darkgray;
+  margin-left: 10px;
+}
+
+.hindi-td{
+  width: 100px;
+  padding-left: 3px;
+  padding-right: 3px;
+}

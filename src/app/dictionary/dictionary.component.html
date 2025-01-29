@@ -1,0 +1,55 @@
+<div class="main-container">
+  <div class="header">
+
+    <div class="search-panel">
+      <input type="text" class="form-control lang-text" id="hindi" required [(ngModel)]="model.hindi" name="hindi">
+      <button mat-flat-button (click)="hindiClicked()">Hindi</button>
+    </div>
+
+    <div class="search-panel">
+      <input type="text" class="form-control lang-text" id="morphology" required [(ngModel)]="model.morphology" name="morphology">
+      <button mat-flat-button (click)="morphologyClicked()">Morphology</button>
+    </div>
+
+    <div class="search-panel">
+      <input type="text" class="form-control lang-text" id="meaning" required [(ngModel)]="model.meaning" name="meaning">
+      <mat-select [(ngModel)]="model.partOfSpeech" name="partOfSpeechId" placeholder="Part of Speech">
+        <mat-option  *ngFor="let partOfSpeech of partOfSpeechComboValues" [value]="partOfSpeech.value">
+          {{partOfSpeech.value}}
+        </mat-option>
+      </mat-select>
+      <button mat-flat-button (click)="meaningClicked()">Meaning</button>
+    </div>
+
+    <div class="search-panel">
+      <input type="text" class="form-control lang-text" id="masterHindiSubstring" required [(ngModel)]="model.masterHindiSubstring" name="">
+      <button  mat-flat-button (click)="masterHindiSubstringClicked()">Hindi Substring</button>
+    </div>
+
+    <div class="search-panel">
+      <input type="text" class="form-control lang-text" id="masterUrduSubstring" required [(ngModel)]="model.masterUrduSubstring" name="">
+      <button  mat-flat-button (click)="masterUrduSubstringClicked()">urdu Substring</button>
+    </div>
+
+
+  </div>
+  <div class="body">
+    <table width="100%">
+      <tr *ngFor="let entry of this.model.entries" class="row">
+        <td >{{entry.dictionarySource}}</td>
+        <td >{{entry.id}}</td>
+        <td >{{entry.hindi}}</td>
+        <td>{{entry.urdu}}</td>
+        <td>{{entry.latin}}</td>
+        <td>{{entry.partOfSpeech}}</td>
+        <td>{{entry.meaning}}</td>
+        <td>
+          <button  mat-flat-button *ngIf="entry.dictionarySource.toString() == 'MURSHID'" mat-button (click)="updateDictionary(entry)">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+
+      </tr>
+    </table>
+    <div>
+    </div>

@@ -1,0 +1,42 @@
+<form (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <div class="form-row">
+      <label for="bollyName" class="form-label">Bollyname</label>
+      <input type="text" class="form-control lang-text" id="bollyName" required
+             [(ngModel)]="model.songInputView.bollyName" name="bollyName">
+    </div>
+
+    <div class="form-row">
+      <label for="hindiTitle" class="form-label">Hindi Title</label>
+      <input type="text" class="form-control lang-text" id="hindiTitle" required
+             [(ngModel)]="model.songInputView.hindiTitle" name="hindiTitle">
+    </div>
+
+    <div class="form-row">
+      <label for="urduTitle" class="form-label">Urdu Title</label>
+      <input type="text" class="form-control lang-text" id="urduTitle" required
+             [(ngModel)]="model.songInputView.urduTitle" name="urduTitle">
+    </div>
+
+
+    <div class="form-row">
+      <label for="video" class="form-label">Video</label>
+      <input type="text" class="form-control lang-text" id="video" required [(ngModel)]="model.songInputView.video"
+             name="video">
+    </div>
+
+    <div class="form-row">
+      <label for="releaseDate" class="form-label">Release Date</label>
+      <input matInput [matDatepicker]="picker" id="releaseDate" required [(ngModel)]="model.songInputView.releaseDate" name="releaseDate">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </div>
+
+    <button   mat-flat-button  type="submit" >Submit</button>
+    <button   mat-flat-button  (click)="resetForm()">Clear</button>
+    <br/>
+    <br/>
+    <span class="error">{{model.message}}</span>
+  </div>
+
+</form>

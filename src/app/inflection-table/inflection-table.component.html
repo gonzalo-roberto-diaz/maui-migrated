@@ -1,0 +1,67 @@
+<form>
+  <div class="form-group">
+    <legend>Inflection Table</legend>
+    <app-messages></app-messages>
+    <div class="selector-and-buttons">
+      <label for="urlKey" class="form-label">URL Key</label>
+      <input type="text" class="form-control lang-text" id="urlKey" required [(ngModel)]="model.selectorItem" name="urlKey" [formControl]="myControl" [matAutocomplete]="auto">
+
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)='somethingSelected($event.option.value)'>
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+          {{option.key}}
+        </mat-option>
+      </mat-autocomplete>
+
+
+      <div class="button-bar">
+        <button type="submit" class="btn btn-success" (click)="getSong()">GET</button>
+        <div class="button-separator"></div>
+        <button type="button" class="btn btn-info" (click)="putSong()">PUT</button>
+        <div class="button-separator"></div>
+        <div class="button-separator"></div>
+        <button type="button" class="btn btn-alert"  (click) ="insertMasterDialog()" >Insert Master</button>
+        <div class="error">{{model.message}}</div>
+        <button type="button" class="btn btn-success" style="margin-right: 5px" (click)="generateTable()">Generate Table</button>
+        <button type="button" class="btn btn-info" style="margin-right: 5px" (click)="resequenceTable()">Re-sequence Table</button>
+      </div>
+    </div>
+
+    <div *ngIf="model.map !== undefined" class="item-list">
+      <div *ngFor="let mapEntry of this.model.map" class="row">
+        <div *ngIf="mapEntry['position'] !== undefined" class="row-position">
+          {{mapEntry['position']}}
+        </div>
+        <div *ngIf="mapEntry['type'].toString() === 'INFLECTED_ENTRY'" class="row-letter">I</div>
+        <div *ngIf="mapEntry['type'].toString()  === 'MASTER_ENTRY'" class="row-letter">M</div>
+        <div *ngIf="mapEntry['type'].toString()  === 'PLACEHOLDER_ENTRY_TRUE'" class="row-letter">T</div>
+        <div *ngIf="mapEntry['type'].toString()  === 'PLACEHOLDER_ENTRY_FALSE'" class="row-letter">F</div>
+        <div *ngIf="mapEntry['text'] !== undefined" class="row-text">
+          {{mapEntry['text']}}
+        </div>
+        <div *ngIf="mapEntry['index'] !== undefined" class="row-index">
+          {{mapEntry['index']}}
+        </div>
+        <div *ngIf="mapEntry['indexes'] !== undefined" class="row-index">
+          {{mapEntry['indexes']}}
+        </div>
+        <div *ngIf="mapEntry['type'].toString() === 'INFLECTED_ENTRY'">
+          <select class="inflected-select" (change)="onOptionsSelected($event, mapEntry)">
+            <option *ngFor="let option of mapEntry['inflectedList']"  [selected]="shouldSelect(option, mapEntry)" >
+              <!--              <div style="display: flex; flex-flow: row nowrap">-->
+              {{option.inflectedHindiIndex}}&nbsp;
+              {{option.partOfSpeech}}
+              {{option.masterDictionaryHindi}}&nbsp;
+              &nbsp;&nbsp;
+              {{option.accidences}}
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              {{option.meaning}}
+              <!--              </div>-->
+            </option>
+          </select>
+        </div>
+        <button *ngIf="mapEntry['type'].toString() === 'INFLECTED_ENTRY'" type="button" class="update-button" (click) ="updateInflected(mapEntry)" >Update</button>
+      </div>
+    </div>
+
+  </div>
+</form>

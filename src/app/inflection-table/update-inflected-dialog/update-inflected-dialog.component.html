@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>{{inflectedItem.urlKey}}</h2>
+
+<!--<loading></loading>-->
+
+<!--<messages></messages>-->
+
+<mat-dialog-content [formGroup]="form">
+
+  <div>
+    <span>Position</span>
+    <span>{{this.inflectedItem.position}}</span>
+  </div>
+  <br/>
+  <mat-form-field>
+    <input matInput
+           placeholder="Hindi"
+           formControlName="hindi">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput
+           placeholder="Index"
+           formControlName="index">
+  </mat-form-field>
+
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+
+  <button class="mat-raised-button"
+          (click)="close()">
+    Close
+  </button>
+
+  <button class="mat-raised-button mat-primary" #saveButton (click)="submit(form)">
+    Save
+  </button>
+
+</mat-dialog-actions>

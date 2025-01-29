@@ -1,0 +1,14 @@
+.menu-container{
+  height: 200px;
+  flex: 1 0 200px;
+}
+
+.menu{
+  background-color: antiquewhite;
+  height: 50px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-items: center;
+  justify-content: space-evenly;
+}

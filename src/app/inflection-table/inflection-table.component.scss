@@ -1,0 +1,90 @@
+.form-group{
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+
+.selector-and-buttons{
+  display: flex;
+  flex-flow: row nowrap;
+  width: 80%;
+  border: 1px solid green;
+}
+
+.selector-and-buttons label{
+  width: 100px;
+  padding-top: 3px;
+  padding-left: 3px;
+}
+
+.selector-and-buttons input {
+  width: 300px;
+}
+
+.button-bar{
+  display: flex;
+  flex-flow: row nowrap;
+  /*width: 300px;*/
+  padding-left: 10px;
+  justify-content: space-around;
+}
+
+.button-separator{
+  width: 10px;
+}
+
+.item-list{
+  margin-top: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
+  /*height: 200px;*/
+  border: 1px solid orange;
+  display: flex;
+  flex-flow: column nowrap;
+  overflow-y: scroll;
+  flex: 1 0 570px;
+  /*min-height: 750px;*/
+}
+
+.row {
+  background-color: white;
+  border: 1px solid lightgray;
+  padding: 3px 10px 3px 30px;
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.row-position{
+  width: 25px;
+}
+
+.row-letter{
+  width: 25px;
+  text-align: center;
+}
+
+.row-index{
+  width: 30px;
+  padding-left: 5px;
+}
+
+.row-text{
+  width: 130px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.inflected-select{
+  width: 580px;
+}
+
+.error{
+  padding: 5px;
+  color: red;
+}
+
+.update-button{
+  font-size: xx-small;
+  height: 20px;
+}
+
