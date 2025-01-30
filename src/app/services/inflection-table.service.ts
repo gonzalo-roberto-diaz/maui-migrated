@@ -92,7 +92,7 @@ export class InflectionTableService {
       if (item.tableItemType === 'INFLECTED_ENTRY') {
         // @ts-ignore
         if (item.position === lastIndex) {
-          const itemToInsert = {};
+          const itemToInsert = new InflectionTableItem();
           // @ts-ignore
           itemToInsert.index = 0;
           // @ts-ignore

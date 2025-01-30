@@ -1,19 +1,33 @@
 import {PartOfSpeech} from './PartOfSpeech';
 import {Accidence} from './Accidence';
 
-export class Inflected {
+export class InflectedViewFlat {
+
   inflectedHindi = '';
+
   inflectedHindiIndex = 0;
+
   masterDictionaryId = 0;
-  masterDictionaryIndex = 0;
+
   masterDictionaryHindi = '';
+
+  masterDictionaryIndex = 0;
+
   partOfSpeech = PartOfSpeech.Noun;
+
   inflectedUrdu = '';
+
   inflectedUrduStripped = '';
+
   accidences: Accidence[] = [];
+
   hideCanonical = false;
+
   inflectedRomanized = '';
+
   irregular = false;
 
   meaning = '';
+
 }
+

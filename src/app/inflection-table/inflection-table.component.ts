@@ -15,14 +15,15 @@ import { CommonModule } from '@angular/common';
 import {MessagesComponent} from '../messages/messages.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatButtonModule} from '@angular/material/button';
 
 
 @Component({
   selector: 'app-inflection-table',
   standalone: true,
-  imports: [CommonModule, MessagesComponent, MatAutocompleteModule, FormsModule, ReactiveFormsModule ],
+  imports: [CommonModule, MessagesComponent, MatAutocompleteModule, FormsModule, ReactiveFormsModule, MatButtonModule ],
   templateUrl: './inflection-table.component.html',
-  styleUrls: ['./inflection-table.component.css']
+  styleUrls: ['./inflection-table.component.scss']
 })
 export class InflectionTableComponent implements OnInit , OnDestroy {
   myControl = new FormControl();
@@ -30,11 +31,15 @@ export class InflectionTableComponent implements OnInit , OnDestroy {
   options: SelectorItem[] = [];
   filteredOptions = new Observable<SelectorItem[]>();
 
+  // Expose the enum to the template
+  InflectionTableItemType = InflectionTableItemType;
+
 
 
   constructor(private globals: GlobalsService,
               selectorService: SelectorsService, public dialog: MatDialog,
               private inflectionTableService: InflectionTableService) {
+
     selectorService.retrieveAllItems().subscribe(result => this.options = result);
   }
 
@@ -48,8 +53,8 @@ export class InflectionTableComponent implements OnInit , OnDestroy {
   }
 
 
-  displayFn(user: SelectorItem): string {
-    return user.key;
+  displayFn(user: SelectorItem | null): string {
+    return user?.key ?? ''; // Uses optional chaining (?.) and nullish coalescing (??)
   }
 
   filter(val: string): SelectorItem[] {
@@ -138,7 +143,7 @@ export class InflectionTableComponent implements OnInit , OnDestroy {
   }
 
 
-  updateInflected(mapEntry: object): void {
+  updateInflected(mapEntry: any): void {
 
     const dialogConfig = new MatDialogConfig();
 
