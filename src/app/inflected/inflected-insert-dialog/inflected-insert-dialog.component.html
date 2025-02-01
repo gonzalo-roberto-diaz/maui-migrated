@@ -1,0 +1,72 @@
+<h2 mat-dialog-title>Insert Inflected Entry</h2>
+
+
+
+<mat-dialog-content [formGroup]="form">
+
+  <mat-form-field>
+    <input matInput
+           placeholder="Inflected Hindi"
+           formControlName="inflected_hindi">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput
+           placeholder="Inflected Hindi Index"
+           formControlName="inflected_hindi_index">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput
+           placeholder="Master Dictionary ID"
+           formControlName="master_dictionary_id">
+  </mat-form-field>
+
+
+  <mat-form-field>
+    <mat-label>Part of Speech</mat-label>
+  <mat-select [(value)]="currentPoS">
+    <mat-select-trigger>
+      {{currentPoS.toString()}}
+    </mat-select-trigger>
+
+    <mat-option  *ngFor="let partOfSpeech of partOfSpeechComboValues" [value]="partOfSpeech.value">
+      {{partOfSpeech.value}}
+    </mat-option>
+  </mat-select>
+    </mat-form-field>
+
+  <mat-form-field>
+    <input matInput
+           placeholder="Accidence"
+           formControlName="accidenceString">
+  </mat-form-field>
+
+
+  <mat-form-field>
+    <input matInput
+           placeholder="Urdu"
+           formControlName="inflected_urdu">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput
+           placeholder="Romanized"
+           formControlName="inflected_romanized">
+  </mat-form-field>
+
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+
+  <button mat-flat-button
+          (click)="close()">
+    Close
+  </button>
+
+  <button mat-flat-button #saveButton (click)="submit(form)">
+    Save
+  </button>
+
+</mat-dialog-actions>

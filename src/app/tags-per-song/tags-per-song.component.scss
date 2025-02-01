@@ -1,0 +1,96 @@
+.main-container{
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  height: 93%;
+}
+
+.header{
+  border: 1px solid green;
+  height: 120px;
+  flex: 0 0 120px;
+  padding: 5px;
+  background-color: burlywood;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.body{
+  border: 5px solid orange;
+  /*flex: 0 1 400px;*/
+}
+
+.item-list{
+  margin-top: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
+  height: 200px;
+  border: 1px solid orange;
+  display: flex;
+  flex-flow: column nowrap;
+  overflow-y: scroll;
+  flex: 1 0 750px;
+  min-height: 750px;
+}
+
+.row {
+  background-color: aliceblue;
+  border: 1px solid lightgray;
+  padding: 3px 10px 3px 30px;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.row-values{
+  display: flex;
+  flex-flow: row wrap;
+  padding-bottom: 5px;
+  flex: 0 1 80%;
+}
+
+.row-buttons{
+  display: flex;
+  flex-flow: row wrap;
+  padding-bottom: 5px;
+}
+
+.button-row{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+}
+
+.separated-horizontally{
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.row-label{
+  /*width: 100px;*/
+  text-align: right;
+  line-height: 30px;
+  padding-right: 3px;
+  padding-left: 3px;
+  width: 110px;
+}
+
+.row-content{
+  background-color: white;
+  border: 1px solid lightgray;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+mat-select{
+  background-color: white;
+  height: 30px;
+  min-width: 100px;
+}
+
+.description{
+  width: 80%;
+}
+
+.lang-text{
+  width: 20pc;
+}

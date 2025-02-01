@@ -1,0 +1,102 @@
+.main-container{
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  border: 3px green dashed;
+  /*max-height: 1200px;*/
+  /*flex: 1 0 1200px;*/
+  /*height: 93%;*/
+}
+
+.header{
+  height: 560px;
+  flex: 0 0 220px;
+  padding: 5px;
+  border: 1px solid crimson;
+
+}
+
+.body{
+  border: 5px solid orange;
+  /*flex: 0 1 400px;*/
+}
+
+.item-list{
+  margin-top: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
+  /*height: 200px;*/
+  border: 1px solid orange;
+  display: flex;
+  flex-flow: column nowrap;
+  overflow-y: scroll;
+  flex: 1 0 400px;
+  min-height: 400px;
+}
+
+.row {
+  background-color: aliceblue;
+  border: 1px solid lightgray;
+  padding: 3px 10px 3px 30px;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.row-upper{
+  display: flex;
+  flex-flow: row wrap;
+  padding-bottom: 5px;
+}
+
+.row-lower{
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.row-label{
+  width: 100px;
+  text-align: right;
+  line-height: 30px;
+  padding-right: 3px;
+}
+
+.row-content{
+  background-color: white;
+  border: 1px solid lightgray;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+.description{
+  width: 80%;
+  height: 80px;
+}
+
+.btn {
+  max-height: 35px;
+  margin-left: 5px;
+  padding-right: 5px;
+}
+
+.form-container {
+  display:flex;
+  flex-flow: column;
+  align-items: flex-start;
+  padding: 3em;
+}
+
+.form-input-field-with-button {
+  display:flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+  gap: 1em;
+}
+
+.form-bottom-button-strip {
+  display:flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+  gap: 1em; width: 100%;
+}
+
+

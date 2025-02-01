@@ -1,1 +1,62 @@
-<p>inflected works!</p>
+<div class="main-container">
+  <div class="header">
+
+    <div class="search-panel">
+      <div class="search-bloc">
+        <input type="text" class="form-control lang-text" id="inflectedHindi" required [(ngModel)]="model.inflectedHindi"
+               name="inflectedHindi">
+        <button mat-flat-button (click)="inflectedHindiClicked()">Inflected Hindi</button>
+      </div>
+      <div class="search-bloc">
+        <input type="text" class="form-control lang-text" id="masterDictionaryId" required [(ngModel)]="model.masterDictionaryId"
+               name="masterDictionaryId">
+        <button mat-flat-button (click)="masterDictionaryIdClicked()">Master Dictionary ID</button>
+      </div>
+
+      <button mat-flat-button (click)="insertInflected()">Insert</button>
+    </div>
+
+
+
+  </div>
+  <div class="body">
+    <table width="100%">
+      <tr class="row">
+        <td colspan="2">Inf. Hindi</td>
+        <td colspan="3">Master Dictionary</td>
+        <td>P.O.S</td>
+        <td>Accidence</td>
+        <td>Inf. Romanized</td>
+        <td>Inf. Urdu</td>
+        <td>Irregular</td>
+        <td>Hide Canonical</td>
+        <td></td>
+        <td></td>
+      </tr>
+
+      <tr *ngFor="let entry of this.model.entries" class="row">
+        <td >{{entry.inflectedHindi}}</td>
+        <td >{{entry.inflectedHindiIndex}}</td>
+        <td >{{entry.masterDictionaryHindi}}</td>
+        <td >{{entry.masterDictionaryIndex}}</td>
+        <td>{{entry.masterDictionaryId}}</td>
+        <td>{{entry.partOfSpeech}}</td>
+        <td>{{accidenceToString(entry)}}</td>
+        <td>{{entry.inflectedRomanized}}</td>
+        <td>{{entry.inflectedUrdu}}</td>
+        <td>{{entry.irregular}}</td>
+        <td>{{entry.hideCanonical}}</td>
+        <td>
+          <button mat-button (click)="updateInflected(entry)">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+        <td>
+          <button mat-flat-button (click)="deleteInflected(entry.inflectedHindi, entry.inflectedHindiIndex)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </table>
+    <div>
+    </div>

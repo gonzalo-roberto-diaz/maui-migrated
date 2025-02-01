@@ -12,11 +12,13 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatButtonModule} from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatInput} from '@angular/material/input';
 
 @Component({
   selector: 'app-song-validation',
   standalone: true,
-  imports: [MatSelectModule, FormsModule, ReactiveFormsModule, CommonModule, MatAutocompleteModule, MatButtonModule],
+  imports: [MatSelectModule, FormsModule, ReactiveFormsModule, CommonModule, MatAutocompleteModule, MatButtonModule, MatFormFieldModule, MatInput],
   templateUrl: './song-validation.component.html',
   styleUrls: ['./song-validation.component.scss']
 })

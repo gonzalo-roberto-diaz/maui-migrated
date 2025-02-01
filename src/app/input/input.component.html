@@ -1,71 +1,70 @@
-<form (ngSubmit)="onSubmit()">
-  <div class="form-group">
-    <div class="form-row">
-      <label for="hindi" class="form-label">Hindi</label>
-      <input type="text" class="form-control lang-text" id="hindi" required [(ngModel)]="model.inputView.hindi" name="hindi">
-    </div>
+<div class="form-container">
 
-    <div class="form-row">
-      <label for="index" class="form-label">Index</label>
-      <input type='number' id="index" required [(ngModel)]="model.inputView.index" name="index">
-    </div>
+    <mat-form-field>
+      <mat-label>Hindi</mat-label>
+      <input matInput type="text" id="hindi" required [(ngModel)]="model.inputView.hindi" name="hindi">
+    </mat-form-field>
 
-    <div class="form-row">
-      <label for="accidence" class="form-label">Accidence</label>
-      <select class="form-control selector" id="accidence" (change)="changedAccidence($event)" required>
-        <option value="" [selected]="model.inputView.accidence.length === 0">Select One</option>
-        <option value="MASCULINE" [selected]="hasAccidenOfString('MASCULINE')" >Masculine</option>
-        <option value="FEMININE" [selected]="hasAccidenOfString('FEMININE')">Feminine</option>
-      </select>
-    </div>
+    <mat-form-field>
+      <mat-label>Index</mat-label>
+      <input matInput type='number' id="index" required [(ngModel)]="model.inputView.index" name="index">
+    </mat-form-field>
 
-    <div class="form-row">
-      <label for="show_canonical" class="form-label">Show Canonical</label>
-      <input type="checkbox" class="form-control" id="show_canonical" required [(ngModel)]="model.inputView.show_canonical" name="show_canonical">
-    </div>
+    <mat-form-field>
+      <mat-label>Accidence</mat-label>
+      <mat-select [(ngModel)]="model.inputView.accidence" [ngModelOptions]="{standalone: true}">
+        <mat-option [value]="''">[NONE]</mat-option>
+        <mat-option [value]="'MASCULINE'">Masculine</mat-option>
+        <mat-option [value]="'FEMININE'">Feminine</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-    <div class="form-row">
-      <label for="treat_as_invariable" class="form-label">Treat as invariable</label>
-      <input type="checkbox" class="form-control" id="treat_as_invariable" required [(ngModel)]="model.inputView.treat_as_invariable" name="treat_as_invariable">
-    </div>
+    <mat-checkbox [(ngModel)]="model.inputView.show_canonical">Show Canonical</mat-checkbox>
+
+    <mat-checkbox [(ngModel)]="model.inputView.treat_as_invariable">Treat as invariable</mat-checkbox>
+
+    <mat-checkbox [(ngModel)]="model.inputView.add_inflected">Add Inflected</mat-checkbox>
 
 
-    <div class="form-row">
-      <label for="add_inflected" class="form-label">Add Inflected</label>
-      <input type="checkbox" class="form-control" id="add_inflected" required [(ngModel)]="model.inputView.add_inflected" name="add_inflected">
-    </div>
+    <mat-form-field>
+      <mat-label>Part of Speech</mat-label>
+      <mat-select (change)="changedPartOfSpeech($event)" [(ngModel)]="model.inputView.part_of_speech">
 
+        <mat-option *ngFor="let partOfSpeech of partOfSpeechComboValues" [value]="partOfSpeech.value">
+          {{partOfSpeech.value}}
+        </mat-option>
 
-    <div class="form-row">
-      <label for="partOfSpeech" class="form-label">Part of Speech</label>
-      <select class="form-control selector" id="partOfSpeech" (change)="changedPartOfSpeech($event)" required>
-        <option *ngFor="let partOfSpeech of partsOfSpeech()" value="{{partOfSpeech}}"  [selected]="partOfSpeech === model.inputView.part_of_speech" >{{partOfSpeech}}</option>
-      </select>
-    </div>
+      </mat-select>
+    </mat-form-field>
 
-    <div class="form-row">
-      <label for="latin" class="form-label">Latin</label>
-      <input type="text" class="form-control lang-text" id="latin" required [(ngModel)]="model.inputView.latin" name="latin">
-      <button mat-flat-button (click)="latinize()">Transliterate</button>
-    </div>
-
-    <div class="form-row">
-      <label for="urdu" class="form-label">Urdu</label>
-      <input type="text" class="form-control lang-text" id="urdu" required [(ngModel)]="model.inputView.urdu" name="urdu">
-      <button mat-flat-button  (click)="hyphenateUrdu()">Hyphenate</button>
-    </div>
-
-    <div class="form-row">
-      <label for="meaining" class="form-label">Meaining</label>
-      <input type="textarea" class="form-control meaning-textarea" id="meaining" required [(ngModel)]="model.inputView.meaning" name="meaning">
-    </div>
+  <div class = "form-input-field-with-button">
+    <mat-form-field  style="width:30em">
+      <mat-label>Latin</mat-label>
+        <input type="text" matInput id="latin" required [(ngModel)]="model.inputView.latin" name="latin">
+    </mat-form-field>
+    <button mat-flat-button style="margin-top: .5em" (click)="latinize()">Transliterate</button>
   </div>
 
-  <button mat-flat-button type="submit" class="btn btn-success">Submit</button>
-  <button  mat-flat-button  (click)="resetForm()">Clear</button>
-  <br/>
-  <br/>
+  <div class = "form-input-field-with-button">
+    <mat-form-field  style="width:30em">
+      <mat-label>Urdu</mat-label>
+      <input type="text" matInput id="urdu"  [(ngModel)]="model.inputView.urdu" name="urdu">
+    </mat-form-field>
+    <button mat-flat-button style="margin-top: .5em" (click)="hyphenateUrdu()">Hyphenate</button>
+  </div>
+
+
+  <mat-form-field  style="width:50em">
+    <mat-label>Meaning</mat-label>
+    <textarea matInput id="meaning" required [(ngModel)]="model.inputView.meaning" name="meaning"></textarea>
+  </mat-form-field>
+
+  <div class="form-bottom-button-strip">
+    <button mat-flat-button (click)="onSubmit()">Submit</button>
+    <button  mat-flat-button  (click)="resetForm()">Clear</button>
+  </div>
+
   <span class="error">{{model.message}}</span>
 
-</form>
+</div>
 

@@ -13,29 +13,24 @@ export class TagsService {
 
   constructor(private http: HttpClient, private messagesService: MessagesService) { }
 
-  async selectBySubstring(substring: string): Promise<TagView[]> {
-    return this.http.get<TagView[]>( `http://localhost:8090/tag/substring/${substring}`, {})
-      .toPromise();
+  selectBySubstring(substring: string): Observable<TagView[]> {
+    return this.http.get<TagView[]>( `http://localhost:8090/tag/substring/${substring}`, {});
   }
 
-  async getTpsPerSong(urlKey: string): Promise<TagsPerSongView[]> {
-    return this.http.get<TagsPerSongView[]>('http://localhost:8090/tag/links_per_song/' + urlKey, {})
-      .toPromise();
+  getTpsPerSong(urlKey: string): Observable<TagsPerSongView[]> {
+    return this.http.get<TagsPerSongView[]>('http://localhost:8090/tag/links_per_song/' + urlKey, {});
   }
 
-  async getTpsPerTag(tagKey: string): Promise<TagsPerSongView[]> {
-    return this.http.get<TagsPerSongView[]>('http://localhost:8090/tag/links_per_tag/' + tagKey, {})
-      .toPromise();
+  getTpsPerTag(tagKey: string): Observable<TagsPerSongView[]> {
+    return this.http.get<TagsPerSongView[]>('http://localhost:8090/tag/links_per_tag/' + tagKey, {});
   }
 
-  async deleteTpsLink(urlKey: string, tagKey: string, tagType: string): Promise<string> {
-    return this.http.delete<string>('http://localhost:8090/tag/link/' + urlKey + '/' + tagKey + '/' + tagType, {})
-      .toPromise();
+  deleteTpsLink(urlKey: string, tagKey: string, tagType: string): Observable<string> {
+    return this.http.delete<string>('http://localhost:8090/tag/link/' + urlKey + '/' + tagKey + '/' + tagType, {});
   }
 
-  async createTpsLink(urlKey: string, tagKey: string, tagType: string): Promise<string> {
-    return this.http.put<string>('http://localhost:8090/tag/link/' + urlKey + '/' + tagKey + '/' + tagType, {})
-      .toPromise();
+  createTpsLink(urlKey: string, tagKey: string, tagType: string): Observable<string> {
+    return this.http.put<string>('http://localhost:8090/tag/link/' + urlKey + '/' + tagKey + '/' + tagType, {});
   }
 
   insert(tag: TagView): Observable<string> {
@@ -66,9 +61,8 @@ export class TagsService {
   }
 
 
-  async delete(tagKey: string): Promise<string> {
-    return this.http.delete<string>('http://localhost:8090/tag/' + tagKey, {})
-      .toPromise();
+  delete(tagKey: string): Observable<string> {
+    return this.http.delete<string>('http://localhost:8090/tag/' + tagKey, {});
   }
 
 }

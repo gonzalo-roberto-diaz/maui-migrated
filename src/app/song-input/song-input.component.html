@@ -1,42 +1,42 @@
-<form (ngSubmit)="onSubmit()">
-  <div class="form-group">
-    <div class="form-row">
-      <label for="bollyName" class="form-label">Bollyname</label>
-      <input type="text" class="form-control lang-text" id="bollyName" required
+
+  <div class="form-container">
+
+    <mat-form-field  style="width:20em">
+      <mat-label>Bollyname</mat-label>
+      <input matInput type="text" id="bollyName"
              [(ngModel)]="model.songInputView.bollyName" name="bollyName">
-    </div>
+    </mat-form-field>
 
-    <div class="form-row">
-      <label for="hindiTitle" class="form-label">Hindi Title</label>
-      <input type="text" class="form-control lang-text" id="hindiTitle" required
+    <mat-form-field   style="width:20em">
+      <mat-label>Hindi Title</mat-label>
+      <input matInput type="text"  id="hindiTitle"
              [(ngModel)]="model.songInputView.hindiTitle" name="hindiTitle">
-    </div>
+    </mat-form-field>
 
-    <div class="form-row">
-      <label for="urduTitle" class="form-label">Urdu Title</label>
-      <input type="text" class="form-control lang-text" id="urduTitle" required
+    <mat-form-field   style="width:20em">
+      <mat-label>Urdu Title</mat-label>
+      <input matInput type="text"  id="urduTitle"
              [(ngModel)]="model.songInputView.urduTitle" name="urduTitle">
-    </div>
+    </mat-form-field>
 
 
-    <div class="form-row">
-      <label for="video" class="form-label">Video</label>
-      <input type="text" class="form-control lang-text" id="video" required [(ngModel)]="model.songInputView.video"
+    <mat-form-field>
+      <mat-label>Video</mat-label>
+      <input matInput type="text" class="form-control lang-text" id="video" required [(ngModel)]="model.songInputView.video"
              name="video">
-    </div>
+    </mat-form-field>
 
-    <div class="form-row">
-      <label for="releaseDate" class="form-label">Release Date</label>
+    <mat-form-field>
+      <mat-label>Release Date</mat-label>
       <input matInput [matDatepicker]="picker" id="releaseDate" required [(ngModel)]="model.songInputView.releaseDate" name="releaseDate">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <div class="form-bottom-button-strip">
+      <button mat-flat-button (click)="onSubmit()">Submit</button>
+      <button mat-flat-button (click)="resetForm()">Clear</button>
     </div>
 
-    <button   mat-flat-button  type="submit" >Submit</button>
-    <button   mat-flat-button  (click)="resetForm()">Clear</button>
-    <br/>
-    <br/>
     <span class="error">{{model.message}}</span>
   </div>
-
-</form>

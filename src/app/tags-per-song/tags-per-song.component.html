@@ -1,1 +1,66 @@
-<p>tags-per-song works!</p>
+<div class="main-container">
+  <div class="header">
+    <div class="row-values">
+      <div class="form-row">
+        <label for="songSelector" class="form-label">Song</label>
+        <input type="text" class="form-control lang-text" id="songSelector" required [(ngModel)]="model.selectedSong" name="songSelector" [formControl]="songSelectionControl" [matAutocomplete]="autoSong">
+      </div>
+      <mat-autocomplete #autoSong="matAutocomplete" [displayWith]="displayFn" (optionSelected)='someSongSelected($event.option.value)'>
+        <mat-option *ngFor="let option of filteredSongOptions | async" [value]="option">
+          {{option.key}}
+        </mat-option>
+      </mat-autocomplete>
+
+      <div class="separated-horizontally"></div>
+
+      <div class="form-row">
+        <label for="tagSelector" class="form-label">Tag </label>
+        <input type="text" class="form-control lang-text" id="tagSelector" required [(ngModel)]="model.selectedTag" name="tagSelector" [formControl]="tagSelectionControl" [matAutocomplete]="autoTag">
+      </div>
+      <mat-autocomplete #autoTag="matAutocomplete" [displayWith]="displayFn" (optionSelected)='someTagelected($event.option.value)'>
+        <mat-option *ngFor="let option of filteredTagOptions | async" [value]="option">
+          {{option.key}}
+        </mat-option>
+      </mat-autocomplete>
+
+      <div class="separated-horizontally"></div>
+
+      <div class="form-row">
+        <label for="linkType" class="form-label">Link Type</label>
+        <mat-select [(ngModel)]="model.selectedType" name="linkType" ngDefaultControl  id="linkType">
+          <mat-option *ngFor="let linkType of linkTypes" [value]="linkType.value">
+            {{linkType.viewValue}}
+          </mat-option>
+        </mat-select>
+      </div>
+
+
+    </div>
+    <div class="button-row" >
+      <button mat-flat-button (click)="createLink()">Create Link</button>
+      <button mat-flat-button (click)="selectLinksBySong()">Select by Song</button>
+      <button mat-flat-button (click)="selectLinksByTag()">Select by Tag</button>
+    </div>
+  </div>
+
+  <div class="body">
+    <table  *ngIf="model.tpsViews !== undefined" class="item-list" border="1">
+      <tr>
+        <th width="250px">Bolly Name</th>
+        <th width="150px">Tag Type</th>
+        <th width="200px">Tag Title</th>
+        <th width="200px"></th>
+      </tr>
+      <tr *ngFor="let mapEntry of this.model.tpsViews">
+        <td width="250px">{{mapEntry.bolly_name}}</td>
+        <td width="150px">{{mapEntry.tag_type}}</td>
+        <td width="200px">{{mapEntry.tag_title}}</td>
+        <td width="200px">
+          <button mat-flat-button (click)="deleteLink(mapEntry.url_key, mapEntry.tag_key, mapEntry.tag_type)">Delete</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+
+</div>

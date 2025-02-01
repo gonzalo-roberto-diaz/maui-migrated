@@ -1,1 +1,28 @@
-<p>transliteration works!</p>
+<div class="main">
+  <div class="menu">
+    <button mat-flat-button style="margin-right: 5px" (click)="hindiToLatinClicked()">Hindi To Latin (with DB)</button>
+    <button mat-flat-button style="margin-right: 5px" (click)="hindiToLatinAutomaticClicked()">Hindi To Latin (automatic)</button>
+    <button mat-flat-button style="margin-right: 5px" (click)="urduToHindiClicked()">Urdu to Hindi</button>
+    <button mat-flat-button style="margin-right: 5px" (click)="hindiToUrduClicked()">Hindi to Urdu</button>
+    <button mat-flat-button style="margin-right: 5px" (click)="latinToIPAClicked()">Latin to IPA</button>
+  </div>
+  <div class="panels">
+    <label for="hindiArea">Hindi</label>
+    <div class="languagePanel">
+      <textarea id="hindiArea" [(ngModel)]="model.hindi"></textarea>
+    </div>
+    <label for="latinArea">Latin - II Forum</label>
+    <div class="languagePanel">
+      <textarea id="latinArea" [(ngModel)]="model.latin"></textarea>
+    </div>
+    <label for="ipaArea">Latin - IPA</label>
+    <div class="languagePanel">
+      <textarea id="ipaArea" [(ngModel)]="model.ipa"></textarea>
+    </div>
+    <label for="urduArea">Urdu</label>
+    <div class="languagePanel">
+      <textarea id="urduArea" [(ngModel)]="model.urdu"></textarea>
+    </div>
+  </div>
+  <div class="message">{{model.message}}</div>
+</div>

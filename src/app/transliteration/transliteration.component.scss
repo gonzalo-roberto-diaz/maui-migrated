@@ -1,0 +1,28 @@
+.main {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.menu {
+  flex: 0 0 50px;
+  background-color: azure;
+  display: flex;
+  flex-flow: row nowrap;
+  padding: 10px;
+}
+
+.panels {
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 10px;
+}
+
+textarea {
+  height: 150px;
+  width: 90%;
+  overflow-y: auto;
+}
+
+label {
+  margin-left: 20px;
+}

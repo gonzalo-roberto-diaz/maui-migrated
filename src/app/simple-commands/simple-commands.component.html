@@ -1,76 +1,47 @@
-<form>
-  <div class="form-group">
-    <legend>File Commands</legend>
-    <div class="form-row">
-      <label for="urlKey" class="form-label">URL Key</label>
-      <input type="text" class="form-control lang-text" style="margin-right: 5px" id="urlKey" required [(ngModel)]="fileName" name="urlKey"  [formControl]="myControl" [matAutocomplete]="auto">
+<div class="form-container">
+  <div style="width: 100%; padding: 2em">
+    <mat-label>File Commands</mat-label>
+  </div>
+
+  <div class="form-input-field-with-button">
+
+    <mat-form-field style="width: 20em;">
+      <mat-label>URL Key</mat-label>
+      <input matInput type="text" class="form-control lang-text" style="margin-right: 5px" id="urlKey" required [(ngModel)]="fileName" name="urlKey"  [formControl]="myControl" [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)='somethingSelected($event.option.value)'>
         <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
           {{option.key}}
         </mat-option>
       </mat-autocomplete>
-
-      <button  mat-flat-button  (click)="reingestFrom()">Re-ingest from</button>
-      <button  mat-flat-button  (click)="reindexFrom()">Re-index from</button>
-      <button  mat-flat-button  (click)="htmlDescription()">HTML description</button>
-      <button  mat-flat-button  (click)="regenerateOneTag()">One Tag JSON-LD </button>
-      <button  mat-flat-button  (click)="regenerateTagJsonLdsStartingFrom()">Tag JSON-LD from</button>
-    </div>
+    </mat-form-field>
+    <button  mat-flat-button  (click)="reingestFrom()">Re-ingest from</button>
+    <button  mat-flat-button  (click)="reindexFrom()">Re-index from</button>
+    <button  mat-flat-button  (click)="htmlDescription()">HTML description</button>
+    <button  mat-flat-button  (click)="regenerateOneTag()">One Tag JSON-LD </button>
+    <button  mat-flat-button  (click)="regenerateTagJsonLdsStartingFrom()">Tag JSON-LD from</button>
   </div>
 
-  <div class="halfs-container">
-    <div class="form-group-section">
-      <legend>Spell Check Regeneration</legend>
-      <div class="form-row">
-        <button   mat-flat-button  (click)="regenerateSpellCheck()">Regenerate</button>
-      </div>
-    </div>
-
-    <div class="form-group-section">
-      <legend>Clear Caches</legend>
-      <div class="form-row">
-        <button   mat-flat-button  (click)="clearCaches()">Clear</button>
-      </div>
-    </div>
-
-    <div class="form-group-section">
-      <legend>Generate Sitemap</legend>
-      <div class="form-row">
-        <button   mat-flat-button  (click)="generateSitemap()">Generate</button>
-      </div>
-    </div>
-
+  <div style="width: 100%; padding: 2em">
+    <mat-label>Global Commands</mat-label>
   </div>
 
-  <div class="halfs-container">
 
-    <div class="form-group">
-      <legend>Reingest All</legend>
-      <div class="form-row">
-        <button   mat-flat-button  (click)="reingestAll()">Reingest!</button>
-      </div>
-    </div>
+  <div style="display:flex; flex-flow: row wrap; gap: 1em">
 
+    <button   mat-flat-button  (click)="regenerateSpellCheck()">Spell Check Regeneration</button>
 
-    <div class="form-group">
-      <legend>All Tag JsonLds</legend>
-      <div class="form-row">
-        <button   mat-flat-button  (click)="regenerateAllTagJsonLds()">Regenerate!</button>
-      </div>
-    </div>
+    <button   mat-flat-button  (click)="clearCaches()">Clear Caches</button>
 
-    <div class="form-group">
-      <legend>Refresh Stats</legend>
-      <div class="form-row">
-        <button   mat-flat-button  (click)="refreshStats()">Refresh!</button>
-      </div>
-    </div>
+    <button   mat-flat-button  (click)="clearCaches()">Generate Sitemap</button>
 
+    <button   mat-flat-button  (click)="reingestAll()">Reingest All</button>
 
+    <button   mat-flat-button  (click)="regenerateAllTagJsonLds()">Regenerate All Tag JsonLds</button>
+
+    <button   mat-flat-button  (click)="refreshStats()">Refresh Stats</button>
   </div>
 
-  <br/>
-  <br/>
+
   <span class="error">{{message}}</span>
 
-</form>
+</div>

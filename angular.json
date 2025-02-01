@@ -72,7 +72,8 @@
               "buildTarget": "murshid-admin-ui:build:production"
             },
             "development": {
-              "buildTarget": "murshid-admin-ui:build:development"
+              "buildTarget": "murshid-admin-ui:build:development",
+              "port": 4444
             }
           },
           "defaultConfiguration": "development"

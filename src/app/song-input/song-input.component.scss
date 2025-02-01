@@ -1,25 +1,21 @@
-.lang-text{
-  width: 300px;
+.form-container {
+  display:flex;
+  flex-flow: column;
+  align-items: flex-start;
+  padding: 3em;
 }
 
-.meaning-textarea{
-  width: 500px;
-}
-
-.selector{
-  width: 400px;
-}
-
-#index{
-  width: 45px;
-}
-
-.form-label {
-  width: 250px;
-}
-
-.form-row{
-  display: flex;
+.form-input-field-with-button {
+  display:flex;
   flex-flow: row nowrap;
-  padding: 5px;
+  align-items: flex-start;
+  gap: 1em;
 }
+
+.form-bottom-button-strip {
+  display:flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+  gap: 1em; width: 100%;
+}
+

@@ -1,24 +1,32 @@
-<form>
-  <div class="form-group">
-    <legend>Song Validation</legend>
 
-    <div class="form-row">
-      <label for="fileName" class="form-label">File Name</label>
-      <input type="text" class="form-control lang-text" id="fileName" required [(ngModel)]="model.url" name="fileName" [formControl]="myControl" [matAutocomplete]="auto">
-    </div>
-    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)='somethingSelected($event.option.value)'>
-      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-        {{option.key}}
-      </mat-option>
-    </mat-autocomplete>
+<div class="form-container">
 
-    <button  mat-flat-button   style="margin-right: 5px" (click)="validateSong()">Validate</button>
-    <button  mat-flat-button  style="margin-right: 5px" (click)="replaceNuktas()">Replace Nuktas</button>
-    <button  mat-flat-button  style="margin-right: 5px" (click)="applyCorrector()">Apply Corrector</button>
-    <br/>
-    <br/>
+  <div style="width: 100%; padding: 2em">
+    <mat-label>Song Validation</mat-label>
   </div>
-  <br/>
+
+  <div class="form-input-field-with-button">
+
+    <mat-form-field style="width: 20em;">
+      <mat-label>File Name</mat-label>
+      <input matInput type="text" class="form-control lang-text" id="fileName" required [(ngModel)]="model.url"
+             name="fileName"
+             [formControl]="myControl" [matAutocomplete]="auto">
+
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
+                        (optionSelected)='somethingSelected($event.option.value)'>
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+          {{option.key}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <button mat-flat-button style="margin-right: 5px" (click)="validateSong()">Validate</button>
+    <button mat-flat-button style="margin-right: 5px" (click)="replaceNuktas()">Replace Nuktas</button>
+    <button mat-flat-button style="margin-right: 5px" (click)="applyCorrector()">Apply Corrector</button>
+
+  </div>
+
+
   <div class="body">
     <table width="100%">
       <tr *ngFor="let entry of this.model.messages" class="row">
@@ -27,4 +35,6 @@
     </table>
   </div>
 
-</form>
+</div>
+
+

@@ -8,12 +8,14 @@ import { MatDatepickerModule } from   '@angular/material/datepicker';
 import { MatNativeDateModule } from   '@angular/material/core';
 import { FormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
+import {MatFormField, MatLabel} from '@angular/material/form-field';
+import {MatInput} from '@angular/material/input';
 
 
 @Component({
   selector: 'app-song-input',
   standalone: true,
-  imports: [MatDatepickerModule,  MatNativeDateModule , FormsModule, MatButtonModule],
+  imports: [MatDatepickerModule, MatNativeDateModule, FormsModule, MatButtonModule, MatFormField, MatInput, MatLabel],
   providers: [MatDatepickerModule],
   templateUrl: './song-input.component.html',
   styleUrls: ['./song-input.component.scss']

@@ -6,20 +6,31 @@ import {EnumUtils} from '../utils/EnumUtils';
 import {GlobalsService} from '../services/globals.service';
 import {InputModel} from '../models/InputModel';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule} from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
+import {MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormField, MatLabel} from "@angular/material/form-field";
+import {MatInput} from '@angular/material/input';
+import {MatOption, MatSelect} from '@angular/material/select';
+import {MatCheckbox} from '@angular/material/checkbox';
+import {SearchType} from '../SearchType';
 
 
 @Component({
   selector: 'app-input',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatButtonModule],
+  imports: [CommonModule, FormsModule, MatButtonModule, MatFormField, MatLabel, MatInput, MatSelect, MatOption, MatCheckbox],
+  providers: [
+    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'outline'}}
+  ],
   templateUrl: './input.component.html',
   styleUrl: './input.component.scss'
 })
 export class InputComponent implements OnInit, OnDestroy {
 
   public model = new InputModel();
+
+
+  public partOfSpeechComboValues = Object.keys(PartOfSpeech).map(strName => new SearchType(strName, strName));
 
   constructor(private httpClient: HttpClient, public globals: GlobalsService) {
   }
@@ -32,9 +43,7 @@ export class InputComponent implements OnInit, OnDestroy {
     this.globals.inputModel = this.model;
   }
 
-  partsOfSpeech(): string[] {
-      return Object.values(PartOfSpeech);
-  }
+
 
   hasAccidenOfString(value: string): boolean {
     const inputAccidence =  EnumUtils.accidenceFromString(value);

@@ -1,0 +1,56 @@
+<h2 mat-dialog-title>Update Inflected Entry</h2>
+
+<!--<loading></loading>-->
+
+<!--<messages></messages>-->
+
+<mat-dialog-content [formGroup]="form">
+
+  <mat-form-field>
+    <input matInput
+           placeholder="Index"
+           formControlName="inflected_hindi_index">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput
+           value="PLURAL,_2ND,SUBJUNCTIVE"
+           placeholder="Accidence"
+           formControlName="accidenceString">
+  </mat-form-field>
+
+
+  <br/>
+  <mat-form-field>
+    <input matInput
+           placeholder="Hindi"
+           formControlName="inflected_hindi">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput
+           placeholder="Urdu"
+           formControlName="inflected_urdu">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput
+           placeholder="Romanized"
+           formControlName="inflected_romanized">
+  </mat-form-field>
+
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+
+  <button mat-flat-button
+          (click)="close()">
+    Close
+  </button>
+
+  <button mat-flat-button #saveButton (click)="submit(form)">
+    Save
+  </button>
+
+</mat-dialog-actions>
