@@ -13,11 +13,13 @@ import {DictionaryUpdateDialogComponent} from './dictionary-update/dictionary-up
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
+import {MatInput} from "@angular/material/input";
+
 
 @Component({
   selector: 'app-table',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatSelectModule, MatIconModule, MatButtonModule],
+    imports: [CommonModule, FormsModule, MatSelectModule, MatIconModule, MatButtonModule, MatInput],
   templateUrl: './dictionary.component.html',
   styleUrls: ['./dictionary.component.scss']
 })
@@ -67,7 +69,7 @@ export class DictionaryComponent implements OnInit, OnDestroy {
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '400px';
+    dialogConfig.width = '100em';
 
     dialogConfig.data = {
       master_dictionary_id: entry.id,

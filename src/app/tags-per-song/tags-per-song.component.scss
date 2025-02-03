@@ -10,7 +10,6 @@
   height: 120px;
   flex: 0 0 120px;
   padding: 5px;
-  background-color: burlywood;
   display: flex;
   flex-flow: column nowrap;
 }
@@ -58,6 +57,7 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-start;
+  gap: 1em;
 }
 
 .separated-horizontally{

@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {FormControl} from '@angular/forms';
 import {SongIngestionModel} from '../models/SongIngestionModel';
 import {SelectorItem} from '../models/SelectorItem';
-import {Observable} from 'rxjs';
+import {debounceTime, distinctUntilChanged, Observable, Subject, switchMap} from 'rxjs';
 import {SelectorsService} from '../services/selector.service';
 import {catchError, map, startWith, tap} from 'rxjs/operators';
 import {ApiResponse} from "../models/ApiResponse";
@@ -15,48 +15,62 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInput} from "@angular/material/input";
+import {GlobalsService} from '../services/globals.service';
+import {SelectorItemType} from '../models/SelectorItemType';
+import {MessagesComponent} from '../messages/messages.component';
 
 @Component({
   selector: 'app-song-commands',
   standalone: true,
-    imports: [CommonModule, MatSelectModule, FormsModule, ReactiveFormsModule, MatAutocompleteModule, MatButtonModule, MatInput],
+  imports: [CommonModule, MatSelectModule, FormsModule, ReactiveFormsModule, MatAutocompleteModule, MatButtonModule, MatInput, MessagesComponent],
   templateUrl: './simple-commands.component.html',
   styleUrls: ['./simple-commands.component.scss']
 })
 export class SimpleCommandsComponent implements OnInit {
 
-  public fileName = '';
   public message = '';
-  myControl = new FormControl();
+
   public model = new SongIngestionModel();
-  options: SelectorItem[] = [];
+
   filteredOptions = new Observable<SelectorItem[]>();
   private selectedItem = new SelectorItem();
 
-  constructor(private httpClient: HttpClient, selectorService: SelectorsService, private simpleCommandsService: SimpleCommandsService) {
-    selectorService.retrieveAllItems().subscribe(result => this.options = result);
+
+  //a subject to be notified every time we want to change the song search string
+  private searchTerms = new Subject<string>();
+
+  constructor(private httpClient: HttpClient, private  selectorService: SelectorsService, private simpleCommandsService: SimpleCommandsService) {
+  }
+
+  /**
+   * a command coming from the UI indicating that it is time to change the substring we use for querying songs
+   * @param query
+   */
+  search(query: string): void {
+    this.searchTerms.next(query);
+  }
+
+  private fetchOptions(query: string): Observable<SelectorItem[]> {
+    return this.selectorService.retrieveAllItems().pipe(
+      map( arr => arr.filter(item => item.key.indexOf(query) > -1  && item.type === SelectorItemType.Song ))
+    );
+  }
+
+  onOptionSelected(item: SelectorItem): void {
+    this.model.selectedItem = item;
+    this.model.searchQuery = item.key;
   }
 
   ngOnInit() {
-    this.filteredOptions = this.myControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(val => val.length >= 1 ? this.filter(val) : [])
-      );
+    this.filteredOptions = this.searchTerms.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap(query => this.fetchOptions(query))
+    );
   }
 
-  displayFn(user: SelectorItem): string  {
-    return user.key!;
-  }
 
-  filter(val: string): SelectorItem[] {
-    return this.options.filter(option =>
-      option.key.toLowerCase().indexOf(val.toLowerCase()) >= 0);
-  }
 
-  async somethingSelected(item: SelectorItem) {
-    this.selectedItem = item;
-  }
 
 
   reingestFrom() {
@@ -117,11 +131,7 @@ export class SimpleCommandsComponent implements OnInit {
 
 
   regenerateSpellCheck() {
-    this.message = '';
-    this.httpClient.put<InputView>('http://localhost:8090/spellcheck/regenerate',  {}).pipe(
-      tap( () => this.message = 'Spell check regenerated!'),
-      catchError(reason => this.message = reason.message)
-    ).subscribe();
+    this.simpleCommandsService.regenerateSpellCheck().subscribe();
   }
 
   clearCaches() {

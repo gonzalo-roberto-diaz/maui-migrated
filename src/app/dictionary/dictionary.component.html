@@ -1,35 +1,55 @@
 <div class="main-container">
   <div class="header">
 
-    <div class="search-panel">
-      <input type="text" class="form-control lang-text" id="hindi" required [(ngModel)]="model.hindi" name="hindi">
-      <button mat-flat-button (click)="hindiClicked()">Hindi</button>
+    <div class="form-input-field-with-button">
+      <mat-form-field style="width: 15em">
+        <mat-label>Hindi</mat-label>
+        <input matInput type="text" required [(ngModel)]="model.hindi" >
+      </mat-form-field>
+      <mat-icon (click)="hindiClicked()">search</mat-icon>
     </div>
 
-    <div class="search-panel">
-      <input type="text" class="form-control lang-text" id="morphology" required [(ngModel)]="model.morphology" name="morphology">
-      <button mat-flat-button (click)="morphologyClicked()">Morphology</button>
+    <div class="form-input-field-with-button">
+      <mat-form-field style="width: 15em">
+        <mat-label>Morphology</mat-label>
+        <input matInput type="text" required [(ngModel)]="model.morphology" >
+      </mat-form-field>
+      <mat-icon (click)="morphologyClicked()">search</mat-icon>
     </div>
 
-    <div class="search-panel">
-      <input type="text" class="form-control lang-text" id="meaning" required [(ngModel)]="model.meaning" name="meaning">
-      <mat-select [(ngModel)]="model.partOfSpeech" name="partOfSpeechId" placeholder="Part of Speech">
-        <mat-option  *ngFor="let partOfSpeech of partOfSpeechComboValues" [value]="partOfSpeech.value">
-          {{partOfSpeech.value}}
-        </mat-option>
-      </mat-select>
-      <button mat-flat-button (click)="meaningClicked()">Meaning</button>
+
+    <div class="form-input-field-with-button">
+      <mat-form-field style="width: 15em">
+        <mat-label>Meaning</mat-label>
+        <input type="text" matInput class="form-control lang-text"  required [(ngModel)]="model.meaning">
+      </mat-form-field>
+      <mat-form-field style="width: 15em">
+        <mat-select [(ngModel)]="model.partOfSpeech" placeholder="Part of Speech">
+          <mat-option *ngFor="let partOfSpeech of partOfSpeechComboValues" [value]="partOfSpeech.value">
+            {{partOfSpeech.value}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-icon (click)="morphologyClicked()">search</mat-icon>
     </div>
 
-    <div class="search-panel">
-      <input type="text" class="form-control lang-text" id="masterHindiSubstring" required [(ngModel)]="model.masterHindiSubstring" name="">
-      <button  mat-flat-button (click)="masterHindiSubstringClicked()">Hindi Substring</button>
+    <div class="form-input-field-with-button">
+      <mat-form-field style="width: 15em">
+        <mat-label>Hindi Substring</mat-label>
+        <input matInput type="text" required [(ngModel)]="model.masterHindiSubstring">
+      </mat-form-field>
+      <mat-icon (click)="masterHindiSubstringClicked()">search</mat-icon>
     </div>
 
-    <div class="search-panel">
-      <input type="text" class="form-control lang-text" id="masterUrduSubstring" required [(ngModel)]="model.masterUrduSubstring" name="">
-      <button  mat-flat-button (click)="masterUrduSubstringClicked()">urdu Substring</button>
+    <div class="form-input-field-with-button">
+      <mat-form-field style="width: 15em">
+        <mat-label>Urdu Substring</mat-label>
+        <input matInput type="text" required [(ngModel)]="model.masterUrduSubstring">
+      </mat-form-field>
+      <mat-icon (click)="masterUrduSubstringClicked()">search</mat-icon>
     </div>
+
+
 
 
   </div>
@@ -44,7 +64,7 @@
         <td>{{entry.partOfSpeech}}</td>
         <td>{{entry.meaning}}</td>
         <td>
-          <button  mat-flat-button *ngIf="entry.dictionarySource.toString() == 'MURSHID'" mat-button (click)="updateDictionary(entry)">
+          <button  mat-flat-button *ngIf="entry.dictionarySource.toString() == 'MURSHID'"  (click)="updateDictionary(entry)">
             <mat-icon>edit</mat-icon>
           </button>
         </td>

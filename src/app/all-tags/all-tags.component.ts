@@ -5,7 +5,6 @@ import {GlobalsService} from '../services/globals.service';
 import {TagView} from '../models/TagView';
 import {catchError, tap} from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
-import {MessagesComponent} from '../messages/messages.component';
 import { FormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatFormField, MatLabel} from "@angular/material/form-field";
@@ -14,7 +13,7 @@ import {MatInput} from '@angular/material/input';
 @Component({
   selector: 'app-all-tags',
   standalone: true,
-  imports: [CommonModule, MessagesComponent, FormsModule, MatButtonModule, MatFormField, MatInput, MatLabel],
+  imports: [CommonModule, FormsModule, MatButtonModule, MatFormField, MatInput, MatLabel],
   templateUrl: './all-tags.component.html',
   styleUrls: ['./all-tags.component.scss']
 })

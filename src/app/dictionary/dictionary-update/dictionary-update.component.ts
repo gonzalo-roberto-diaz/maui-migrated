@@ -1,47 +1,39 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {DataService} from '../../services/data.service';
 import {DictionaryUpdateView} from './DictionaryUpdateView';
 import {PartOfSpeech} from '../../models/PartOfSpeech';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatOption, MatSelect} from '@angular/material/select'
+import {MatInput} from '@angular/material/input';
+import {MatButton} from '@angular/material/button';
 import {SearchType} from '../../SearchType';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-dictionary-update',
   standalone: true,
-  imports: [MatDialogModule],
-  providers: [
-       {
-         provide: MatDialogRef,
-         useValue: {}
-       }
-  ],
-  templateUrl: './dictionary-update-dialog.component.html',
-  styleUrls: ['./dictionary-update-dialog.component.css']
+  imports: [CommonModule, MatDialogModule, MatFormFieldModule, MatDialogModule, ReactiveFormsModule, MatOption, MatSelect, MatInput, MatButton, FormsModule],
+  templateUrl: './dictionary-update.component.html',
+  styleUrls: ['./dictionary-update.component.scss']
 })
 export class DictionaryUpdateDialogComponent implements OnInit {
 
+  linkTypes: SearchType[] = [];
+  public partOfSpeechComboValues: SearchType[] =
+    Object.keys(PartOfSpeech).map(s => new SearchType(s.valueOf().toUpperCase(), s.valueOf().toUpperCase()));
 
-  public partOfSpeechComboValues = Object.keys(PartOfSpeech).map(s => s.toUpperCase());
-
-  currentPoS: PartOfSpeech = PartOfSpeech.Noun;
+  currentPoS: SearchType = new SearchType('NOUN', PartOfSpeech.Noun.valueOf());
 
 
-  form: FormGroup;
 
   constructor(
-    private fb: FormBuilder,
     public dialogRef: MatDialogRef<DictionaryUpdateDialogComponent>,
     private dataService: DataService, @Inject(MAT_DIALOG_DATA) public updateView: DictionaryUpdateView) {
 
-    this.form = fb.group({
-      master_dictionary_id: [updateView.master_dictionary_id, Validators.required],
-      meaning: [updateView.meaning, Validators.required],
-      part_of_speech: [updateView.part_of_speech, Validators.required],
-      hindi_word: [updateView.hindi_word, Validators.required],
-      urdu_word: [updateView.urdu_word, Validators.required],
-      romanized_word: [updateView.romanized_word, Validators.required]
-    });
+
 
 
     // this.currentPoS = updateView.part_of_speech;
@@ -55,24 +47,22 @@ export class DictionaryUpdateDialogComponent implements OnInit {
   }
 
 
-  submit(form: FormGroup): void {
-    const values = form.value;
-    const updateView = new DictionaryUpdateView();
-    updateView.master_dictionary_id = values.master_dictionary_id;
-    updateView.hindi_word = values.hindi_word.trim();
-    updateView.urdu_word = values.urdu_word.trim();
-
-    updateView.part_of_speech = values.part_of_speech.trim();
-    updateView.romanized_word = values.romanized_word.trim();
-    updateView.meaning = values.meaning;
-
-    this.dataService.updateDictionary(updateView)
+  submit(): void {
+    this.dataService.updateDictionary(this.updateView)
       .subscribe();
     this.dialogRef.close(this.updateView);
   }
 
   close() {
     this.dialogRef.close();
+  }
+
+  compareFn(o1: SearchType, o2: SearchType): boolean {
+    if (o1 && o2) {
+      return o1.value === o2.value;
+    }else{
+      return false;
+    }
   }
 
 }

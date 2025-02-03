@@ -3,7 +3,7 @@ import {GlobalsService} from '../services/globals.service';
 import {SelectorsService} from '../services/selector.service';
 import {SelectorItem} from '../models/SelectorItem';
 import {catchError, filter, map, startWith, tap} from 'rxjs/operators';
-import {Observable, throwError} from 'rxjs';
+import {debounceTime, distinctUntilChanged, Observable, Subject, switchMap, throwError} from 'rxjs';
 import {FormControl} from '@angular/forms';
 import {InflectionTableModel} from '../models/InflectionTableModel';
 import {InflectionTableItemType} from '../models/InflectionTableItemType';
@@ -16,20 +16,27 @@ import {MessagesComponent} from '../messages/messages.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
+import {MatFormField, MatLabel} from '@angular/material/form-field';
+import {MatInput} from '@angular/material/input';
+import {SelectorItemType} from '../models/SelectorItemType';
 
 
 @Component({
   selector: 'app-inflection-table',
   standalone: true,
-  imports: [CommonModule, MessagesComponent, MatAutocompleteModule, FormsModule, ReactiveFormsModule, MatButtonModule ],
+  imports: [CommonModule, MessagesComponent, MatAutocompleteModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatFormField, MatInput, MatLabel],
   templateUrl: './inflection-table.component.html',
   styleUrls: ['./inflection-table.component.scss']
 })
 export class InflectionTableComponent implements OnInit , OnDestroy {
-  myControl = new FormControl();
+
   public model = new InflectionTableModel();
-  options: SelectorItem[] = [];
+
+  //the array of SelectorItems to show in the dropdown, representing songs whose key fields  contain the searchQuery substring
   filteredOptions = new Observable<SelectorItem[]>();
+
+  //a subject to be notified every time we want to change the song search string
+  private searchTerms = new Subject<string>();
 
   // Expose the enum to the template
   InflectionTableItemType = InflectionTableItemType;
@@ -37,34 +44,47 @@ export class InflectionTableComponent implements OnInit , OnDestroy {
 
 
   constructor(private globals: GlobalsService,
-              selectorService: SelectorsService, public dialog: MatDialog,
+              private selectorService: SelectorsService, public dialog: MatDialog,
               private inflectionTableService: InflectionTableService) {
+  }
 
-    selectorService.retrieveAllItems().subscribe(result => this.options = result);
+  /**
+   * a command coming from the UI indicating that it is time to change the substring we use for querying songs
+   * @param query
+   */
+  search(query: string): void {
+    this.searchTerms.next(query);
   }
 
   ngOnInit() {
     this.model = this.globals.inflectionTableModel;
-    this.filteredOptions = this.myControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(val => val.length >= 1 ? this.filter(val) : [])
-      );
+    this.filteredOptions = this.searchTerms.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap(query => this.fetchOptions(query))
+    );
   }
 
 
-  displayFn(user: SelectorItem | null): string {
-    return user?.key ?? ''; // Uses optional chaining (?.) and nullish coalescing (??)
+
+  onOptionSelected(item: SelectorItem): void {
+    this.model.selectedItem = item;
+    this.model.searchQuery = item.key;
   }
 
-  filter(val: string): SelectorItem[] {
-    return this.options.filter(option =>
-      option.key.toLowerCase().indexOf(val.toLowerCase()) >= 0);
+  /**
+   * the function that goes outside the component in order to retrieve information
+   * (the underlying service is clumsilu cached and can be inproved)
+   * @param query
+   * @private
+   */
+  private fetchOptions(query: string): Observable<SelectorItem[]> {
+    return this.selectorService.retrieveAllItems().pipe(
+      map( arr => arr.filter(item => item.key.indexOf(query) > -1  && item.type === SelectorItemType.Song ))
+    );
   }
 
-  async somethingSelected(item: SelectorItem) {
-    this.model.selectorItem = item;
-  }
+
 
   ngOnDestroy(): void {
     this.globals.inflectionTableModel = this.model;
@@ -73,7 +93,7 @@ export class InflectionTableComponent implements OnInit , OnDestroy {
 
   getSong() {
     this.model.message = '';
-    this.inflectionTableService.getSong(this.model.selectorItem.key)
+    this.inflectionTableService.getSong(this.model.selectedItem.key)
       .pipe(
         // tslint:disable-next-line:no-shadowed-variable
         tap(map => this.model.map = map),
@@ -89,24 +109,13 @@ export class InflectionTableComponent implements OnInit , OnDestroy {
 
   putSong() {
     this.model.message = '';
-    this.inflectionTableService.putSong(this.model.map, this.model.selectorItem.key)
-      .pipe(
-        catchError(err => {
-          this.model.message = 'Error!';
-          console.log(err);
-          return throwError(err);
-        })
-      ).subscribe(() => {
-        this.model.message = 'Song Save successful!';
-    });
+    this.inflectionTableService.putSong(this.model.map, this.model.selectedItem.key).subscribe();
   }
 
   generateTable() {
     const fileName = this.deductFileName();
     this.model.message = '';
-    this.inflectionTableService.createTable(fileName).toPromise()
-      .then(() => this.model.message = 'Table created!')
-      .catch(reason => this.model.message = reason.message);
+    this.inflectionTableService.createTable(fileName).subscribe();
   }
 
   resequenceTable() {
@@ -119,7 +128,7 @@ export class InflectionTableComponent implements OnInit , OnDestroy {
 
 
   deductFileName(): string {
-    let key = this.model.selectorItem.key;
+    let key = this.model.selectedItem.key;
     key = key + '.txt';
     return key;
   }
@@ -159,7 +168,7 @@ export class InflectionTableComponent implements OnInit , OnDestroy {
     const entryIndex = mapEntry.index;
 
     dialogConfig.data = {
-      urlKey: this.model.selectorItem.key,
+      urlKey: this.model.selectedItem.key,
       position: entryPosition,
       hindi: entryText,
       index: entryIndex

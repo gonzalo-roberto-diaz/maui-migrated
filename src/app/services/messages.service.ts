@@ -8,15 +8,26 @@ import {filter} from 'rxjs/operators';
 })
 export class MessagesService {
 
-  private subject = new BehaviorSubject<string[]>([]);
+  private errorsSubject = new BehaviorSubject<string[]>([]);
 
-  errors$: Observable<string[]> = this.subject.asObservable()
+  private messagesSubject = new BehaviorSubject<string[]>([]);
+
+  errors$: Observable<string[]> = this.errorsSubject.asObservable()
     .pipe(
-      filter(messages => messages && messages.length > 0)
+      filter(item => item && item.length > 0)
+    );
+
+  messages$: Observable<string[]> = this.messagesSubject.asObservable()
+    .pipe(
+      filter(item => item && item.length > 0)
     );
 
   showErrors(...errors: string[]) {
-    this.subject.next(errors);
+    this.errorsSubject.next(errors);
+  }
+
+  showMessages(...messages: string[]) {
+    this.messagesSubject.next(messages);
   }
 
 }

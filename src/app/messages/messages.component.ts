@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Observable} from 'rxjs';
+import {mergeWith, Observable} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {MessagesService} from '../services/messages.service';
 import {MatIconModule} from '@angular/material/icon';
@@ -17,7 +17,11 @@ export class MessagesComponent implements OnInit {
 
   showMessages = false;
 
+  showErrors = false;
+
   errors$: Observable<string[]> = new Observable<string[]>();
+
+  messages$: Observable<string[]> = new Observable<string[]>();
 
 
   constructor(public messagesService: MessagesService) {
@@ -29,15 +33,19 @@ export class MessagesComponent implements OnInit {
   ngOnInit() {
     this.errors$ = this.messagesService.errors$
       .pipe(
-        tap(() => this.showMessages = true)
+        tap(() => this.showErrors = true)
       );
 
+    this.messages$ = this.messagesService.messages$
+      .pipe(
+        tap(() => this.showMessages = true)
+      );
   }
 
 
   onClose() {
     this.showMessages = false;
-
+    this.showErrors = false;
   }
 
 }

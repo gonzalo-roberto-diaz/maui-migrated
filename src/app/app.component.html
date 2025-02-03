@@ -1,7 +1,17 @@
-<div style="border: 5px solid orange; height: 100%; flex-flow: column nowrap; justify-content: flex-start">
+
   <!--  <router-outlet></router-outlet>-->
-  <app-menu></app-menu>
-  <!--  <div>-->
-  <router-outlet></router-outlet>
-  <!--  </div>-->
-</div>
+  <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" (selectedTabChange)="onTabChange($event)">>
+    <mat-tab  label ="Input"></mat-tab>
+    <mat-tab  label ="Dictionary"></mat-tab>
+    <mat-tab  label ="Song Input"></mat-tab>
+    <mat-tab  label ="Simple Commands"></mat-tab>
+    <mat-tab  label ="Song Ingestion"></mat-tab>
+    <mat-tab  label ="Inflection Table"></mat-tab>
+    <mat-tab  label ="Song Validation"></mat-tab>
+    <mat-tab  label ="Inflected"></mat-tab>
+    <mat-tab  label ="All Tags"></mat-tab>
+    <mat-tab  label ="Tags per Song"></mat-tab>
+    <mat-tab  label ="Transliteration"></mat-tab>
+  </mat-tab-group>
+
+<router-outlet></router-outlet>

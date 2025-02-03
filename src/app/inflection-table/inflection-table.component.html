@@ -1,28 +1,32 @@
-<form>
-  <div class="form-group">
-    <legend>Inflection Table</legend>
-    <app-messages></app-messages>
+  <app-messages></app-messages>
+  <div class="form-container">
+
     <div class="selector-and-buttons">
-      <label for="urlKey" class="form-label">URL Key</label>
-      <input type="text" class="form-control lang-text" id="urlKey" required [(ngModel)]="model.selectorItem" name="urlKey" [formControl]="myControl" [matAutocomplete]="auto">
 
-      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)='somethingSelected($event.option.value)'>
-        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-          {{option.key}}
-        </mat-option>
-      </mat-autocomplete>
+      <div class="form-input-field-with-button">
+        <mat-form-field style="width: 20em">
+          <mat-label>Song URL Key</mat-label>
+          <input
+            type="text"
+            matInput
+            [(ngModel)]="model.searchQuery"
+            [matAutocomplete]="auto"
+            name="searchQuery"
+            placeholder="Search..."
+            (input)="search(model.searchQuery)"
+          />
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event.option.value)">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+              {{ option.key }}
+            </mat-option>
+          </mat-autocomplete>
 
-
-      <div class="button-bar">
+        </mat-form-field>
         <button mat-flat-button type="submit" (click)="getSong()">GET</button>
-        <div class="button-separator"></div>
         <button mat-flat-button  (click)="putSong()">PUT</button>
-        <div class="button-separator"></div>
-        <div class="button-separator"></div>
         <button mat-flat-button  (click) ="insertMasterDialog()" >Insert Master</button>
-        <div class="error">{{model.message}}</div>
-        <button mat-flat-button  style="margin-right: 5px" (click)="generateTable()">Generate Table</button>
-        <button mat-flat-button  style="margin-right: 5px" (click)="resequenceTable()">Re-sequence Table</button>
+        <button mat-flat-button  (click)="generateTable()">Generate Table</button>
+        <button mat-flat-button  (click)="resequenceTable()">Re-sequence Table</button>
       </div>
     </div>
 
@@ -35,7 +39,7 @@
         <div *ngIf="mapEntry['tableItemType'] === InflectionTableItemType.MASTER_ENTRY" class="row-letter">M</div>
         <div *ngIf="mapEntry['tableItemType'] === InflectionTableItemType.PLACEHOLDER_ENTRY_TRUE" class="row-letter">T</div>
         <div *ngIf="mapEntry['tableItemType'] ===  InflectionTableItemType.PLACEHOLDER_ENTRY_FALSE" class="row-letter">F</div>
-        <div *ngIf="mapEntry['text'] !== undefined" class="row-text">
+        <div *ngIf="mapEntry['text'] !== undefined" class="row-text" style="width: 15em">
           {{mapEntry['text']}}
         </div>
         <div *ngIf="mapEntry['index'] !== undefined" class="row-index">
@@ -45,7 +49,7 @@
           {{mapEntry['indexes']}}
         </div>
         <div *ngIf="mapEntry['tableItemType'] === InflectionTableItemType.INFLECTED_ENTRY">
-          <select class="inflected-select" (change)="onOptionsSelected($event, mapEntry)">
+          <select class="inflected-select" (change)="onOptionsSelected($event, mapEntry)" style="width: 60em">
             <option *ngFor="let option of mapEntry['inflectedList']"  [selected]="shouldSelect(option, mapEntry)" >
               <!--              <div style="display: flex; flex-flow: row nowrap">-->
 
@@ -67,4 +71,4 @@
     </div>
 
   </div>
-</form>
+

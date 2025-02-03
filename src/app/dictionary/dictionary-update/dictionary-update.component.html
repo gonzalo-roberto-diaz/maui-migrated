@@ -1,39 +1,35 @@
 <h2 mat-dialog-title>Update Dictionary</h2>
 
+<mat-dialog-content>
 
-<mat-dialog-content [formGroup]="form">
 
-  <mat-form-field>
-    <input matInput
-           placeholder="Meaning"
-           formControlName="meaning">
+  <mat-form-field style="width: 30em">
+    <mat-label>Meaning</mat-label>
+    <textarea matInput [(ngModel)]="updateView.meaning"></textarea>
   </mat-form-field>
 
 
   <br/>
   <mat-form-field>
-    <input matInput
-           placeholder="Romanized word"
-           formControlName="romanized_word">
+    <mat-label>Romanized word</mat-label>
+    <input matInput [(ngModel)]="updateView.romanized_word">
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput
-           placeholder="Hindi Word"
-           formControlName="hindi_word">
-  </mat-form-field>
+    <mat-label>Hindi Word</mat-label>
+    <input matInput [(ngModel)]="updateView.hindi_word">
+  </mat-form-field>s
 
   <mat-form-field>
-    <input matInput
-           placeholder="Urdu Word"
-           formControlName="urdu_word">
+    <mat-label>"Urdu Word</mat-label>
+    <input matInput [(ngModel)]="updateView.urdu_word">
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>Part of Speech</mat-label>
-    <mat-select placeholder="Select POS"  formControlName="part_of_speech" [value]="currentPoS.toString()">
-      <mat-option  *ngFor="let partOfSpeech of partOfSpeechComboValues" [value]="partOfSpeech">
-        {{partOfSpeech}}
+    <mat-select [(ngModel)]="updateView.part_of_speech">
+      <mat-option  *ngFor="let partOfSpeech of partOfSpeechComboValues" [value]="partOfSpeech.value" >
+        {{partOfSpeech.viewValue}}
       </mat-option>
     </mat-select>
   </mat-form-field>
@@ -43,12 +39,13 @@
 
 <mat-dialog-actions>
 
-  <button class="mat-raised-button"
+  <button mat-flat-button
           (click)="close()">
     Close
   </button>
 
-  <button class="mat-raised-button mat-primary" #saveButton (click)="submit(form)">
+
+  <button mat-flat-button #saveButton (click)="submit()">
     Save
   </button>
 

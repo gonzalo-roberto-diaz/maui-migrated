@@ -46,8 +46,8 @@ export class SongIngestionComponent implements OnInit, OnDestroy {
 
   }
 
-  displayFn(user: SelectorItem): string {
-    return user.key!;
+  displayFn(user: SelectorItem | null): string {
+    return user?.key ?? ''; // Uses optional chaining (?.) and nullish coalescing (??)
   }
 
   filter(val: string): SelectorItem[] {
@@ -56,7 +56,7 @@ export class SongIngestionComponent implements OnInit, OnDestroy {
   }
 
   async somethingSelected(item: SelectorItem) {
-    this.model.selectorItem = item;
+    this.model.selectedItem = item;
   }
 
   resetForm(): void {
@@ -64,7 +64,7 @@ export class SongIngestionComponent implements OnInit, OnDestroy {
   }
 
   deductFileName(): string {
-    let key = this.model.selectorItem.key;
+    let key = this.model.selectedItem.key;
     key = key + '.txt';
     return key;
   }
@@ -72,7 +72,7 @@ export class SongIngestionComponent implements OnInit, OnDestroy {
   ingestSong(): void {
     const fileName = this.deductFileName();
     this.model.message = '';
-    this.httpClient.put<InputView>(`http://localhost:8090/songs/ingest/${fileName}/${this.model.selectorItem.key}`, {}).pipe(
+    this.httpClient.put<InputView>(`http://localhost:8090/songs/ingest/${fileName}/${this.model.selectedItem.key}`, {}).pipe(
       tap(
         () => this.model.message = 'Success!'
       ),
@@ -83,7 +83,7 @@ export class SongIngestionComponent implements OnInit, OnDestroy {
   indexSong(): void {
     const fileName = this.deductFileName();
     this.model.message = '';
-    this.httpClient.put<InputView>(`http://localhost:8090/songs/index_words/${fileName}/${this.model.selectorItem.key}`, {}).pipe(
+    this.httpClient.put<InputView>(`http://localhost:8090/songs/index_words/${fileName}/${this.model.selectedItem.key}`, {}).pipe(
       tap(
         () => this.model.message = 'Success!'
       ),

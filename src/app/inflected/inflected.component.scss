@@ -5,9 +5,11 @@
 
 .header{
   flex: 0 0 50px;
-  background-color: #42A948;
   display: flex;
   flex-flow: row nowrap;
+  align-items: center;
+  gap: 2em;
+  padding: 1em;
 }
 
 .lang-text{

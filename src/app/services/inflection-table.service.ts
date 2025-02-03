@@ -3,7 +3,7 @@ import {InflectionTableModel} from '../models/InflectionTableModel';
 import {HttpClient} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {InflectionTableItem} from '../models/InflectionTableItem';
-import {catchError, shareReplay} from 'rxjs/operators';
+import {catchError, shareReplay, tap} from 'rxjs/operators';
 import {MessagesService} from './messages.service';
 import {InflectedItem} from '../models/InflectedItem';
 
@@ -31,6 +31,7 @@ export class InflectionTableService {
     // tslint:disable-next-line:ban-types
     return this.httpClient.put<Map<string, Object>>(`http://localhost:8090/inflection-table/song/${selectorItemKey}`, map, {})
       .pipe(
+        tap(() => this.messagesService.showMessages('updates successfully written')),
         catchError(err => {
           this.messagesService.showErrors('error storing song: ', err.message);
           return throwError(err);
@@ -52,7 +53,7 @@ export class InflectionTableService {
     ).pipe(
         shareReplay(),
         catchError(err => {
-          this.messagesService.showErrors('error storing song: ', err.message);
+          this.messagesService.showErrors('error storing song: ', err.error);
           return throwError(err);
         })
       );
@@ -65,17 +66,25 @@ export class InflectionTableService {
 
 
   createTable(fileName: string): Observable<string> {
-    return this.httpClient.put<string>('http://localhost:8090/songs/createpreliminar',  {}, {params: {fileName}} );
-
-
-    // .toPromise()
-    //   .then(() => this.model.message = 'Table created!')
-    //   .catch(reason => this.model.message = reason.message);
-
+    return this.httpClient.put<string>('http://localhost:8090/songs/createpreliminar',  {}, {params: {fileName}} )
+      .pipe(
+        tap(() => this.messagesService.showMessages('table created successfuly')),
+        catchError(err => {
+          this.messagesService.showErrors(err.error);
+          return throwError(err);
+        })
+      );
   }
 
   resequenceTable(fileName: string): Observable<string> {
-    return this.httpClient.put<string>('http://localhost:8090/songs/resequence', {}, {params: {songFile: fileName}});
+    return this.httpClient.put<string>('http://localhost:8090/songs/resequence', {}, {params: {songFile: fileName}})
+      .pipe(
+        tap(() => this.messagesService.showMessages('table resequenced successfuly')),
+        catchError(err => {
+          this.messagesService.showErrors(err.error);
+          return throwError(err);
+        })
+      );
   }
 
 

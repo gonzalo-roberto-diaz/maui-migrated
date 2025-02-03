@@ -4,11 +4,13 @@ import {TransliterationModel} from '../models/TransliterationModel';
 import {HttpClient} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
+import {MatFormField, MatLabel} from "@angular/material/form-field";
+import {MatInput} from '@angular/material/input';
 
 @Component({
   selector: 'app-transliteration',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, MatButtonModule],
+  imports: [FormsModule, ReactiveFormsModule, MatButtonModule, MatFormField, MatInput, MatLabel],
   templateUrl: './transliteration.component.html',
   styleUrls: ['./transliteration.component.scss']
 })

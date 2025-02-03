@@ -2,10 +2,11 @@
   display: flex;
   flex-flow: column nowrap;
   align-items: stretch;
-  border: 3px green dashed;
+  //border: 3px green dashed;
   /*max-height: 1200px;*/
   /*flex: 1 0 1200px;*/
   /*height: 93%;*/
+
 }
 
 .header{
@@ -17,7 +18,7 @@
 }
 
 .body{
-  border: 5px solid orange;
+  width: 100%;
   /*flex: 0 1 400px;*/
 }
 
@@ -31,15 +32,14 @@
   flex-flow: column nowrap;
   overflow-y: scroll;
   flex: 1 0 400px;
-  min-height: 400px;
 }
 
 .row {
   background-color: aliceblue;
-  border: 1px solid lightgray;
-  padding: 3px 10px 3px 30px;
+  border: 1px solid orangered;
   display: flex;
   flex-flow: column nowrap;
+  padding: 1em;
 }
 
 .row-upper{
@@ -82,7 +82,7 @@
   display:flex;
   flex-flow: column;
   align-items: flex-start;
-  padding: 3em;
+  padding: 1em;
 }
 
 .form-input-field-with-button {
@@ -99,4 +99,15 @@
   gap: 1em; width: 100%;
 }
 
+.tag-row {
+  display: flex; flex-flow: row nowrap; gap: 1em; padding: 1em; border: 1px solid lightgray;
+}
+
+.tag-row-cells {
+  display: flex; flex-flow: column nowrap;
+}
+
+.tag-row-cells-row1 {
+  display: flex; flex-flow: row nowrap; gap: 2em; align-items: flex-start;
+}
 

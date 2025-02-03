@@ -12,12 +12,13 @@ import {MatIconModule} from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
+import {MatInput} from '@angular/material/input';
 
 
 @Component({
   selector: 'app-inflected',
   standalone: true,
-  imports: [CommonModule, MatIconModule, FormsModule, MatFormFieldModule, MatButtonModule],
+  imports: [CommonModule, MatIconModule, FormsModule, MatFormFieldModule, MatButtonModule, MatInput],
   templateUrl: './inflected.component.html',
   styleUrls: ['./inflected.component.scss']
 })

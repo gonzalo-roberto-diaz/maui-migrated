@@ -1,9 +1,18 @@
 
 .messages-container {
   display: flex;
-  color: #a94442;
-  background-color: #f2dede;
-  border: 1px solid #ebccd1;
+  color: black;
+  background-color: lightcyan;
+  border: 1px solid dodgerblue;
+  padding: 20px;
+  position: relative;
+}
+
+.errors-container {
+  display: flex;
+  color: black;
+  background-color: lightcoral;
+  border: 1px solid red;
   padding: 20px;
   position: relative;
 }
@@ -15,6 +24,4 @@
   cursor: pointer;
 }
 
-.message {
 
-}

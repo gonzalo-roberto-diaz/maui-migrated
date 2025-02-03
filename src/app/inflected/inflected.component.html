@@ -1,17 +1,24 @@
 <div class="main-container">
   <div class="header">
 
-    <div class="search-panel">
-      <div class="search-bloc">
-        <input type="text" class="form-control lang-text" id="inflectedHindi" required [(ngModel)]="model.inflectedHindi"
-               name="inflectedHindi">
-        <button mat-flat-button (click)="inflectedHindiClicked()">Inflected Hindi</button>
-      </div>
-      <div class="search-bloc">
-        <input type="text" class="form-control lang-text" id="masterDictionaryId" required [(ngModel)]="model.masterDictionaryId"
-               name="masterDictionaryId">
-        <button mat-flat-button (click)="masterDictionaryIdClicked()">Master Dictionary ID</button>
-      </div>
+
+    <div class="form-input-field-with-button">
+      <mat-form-field style="width: 15em">
+        <mat-label>Inflected Hindi</mat-label>
+        <input matInput type="text" required [(ngModel)]="model.inflectedHindi" >
+      </mat-form-field>
+      <mat-icon (click)="inflectedHindiClicked()">search</mat-icon>
+    </div>
+
+    <div class="form-input-field-with-button">
+      <mat-form-field style="width: 15em">
+        <mat-label>Master Dictionary ID</mat-label>
+        <input matInput type="text" required [(ngModel)]="model.masterDictionaryId" >
+      </mat-form-field>
+      <mat-icon (click)="masterDictionaryIdClicked()">search</mat-icon>
+    </div>
+
+
 
       <button mat-flat-button (click)="insertInflected()">Insert</button>
     </div>

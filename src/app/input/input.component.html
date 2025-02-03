@@ -1,3 +1,5 @@
+<span *ngIf="model.message!= ''" class="error">{{model.message}}</span>
+
 <div class="form-container">
 
     <mat-form-field>
@@ -64,7 +66,7 @@
     <button  mat-flat-button  (click)="resetForm()">Clear</button>
   </div>
 
-  <span class="error">{{model.message}}</span>
+
 
 </div>
 

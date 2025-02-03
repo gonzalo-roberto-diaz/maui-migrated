@@ -8,7 +8,7 @@
   display: flex;
   flex-flow: row nowrap;
   width: 80%;
-  border: 1px solid green;
+
 }
 
 .selector-and-buttons label{
@@ -43,7 +43,8 @@
   flex-flow: column nowrap;
   overflow-y: scroll;
   flex: 1 0 570px;
-  /*min-height: 750px;*/
+  width: 85%;
+  ///*min-height: 750px;*/
 }
 
 .row {
@@ -86,5 +87,27 @@
 .update-button{
   font-size: xx-small;
   height: 20px;
+}
+
+
+.form-container {
+  display:flex;
+  flex-flow: column;
+  align-items: flex-start;
+  padding: 1em;
+}
+
+.form-input-field-with-button {
+  display:flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+  gap: 1em;
+}
+
+.form-bottom-button-strip {
+  display:flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+  gap: 1em; width: 100%;
 }
 

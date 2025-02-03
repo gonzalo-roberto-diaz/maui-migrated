@@ -1,71 +1,68 @@
-<app-messages></app-messages>
-
 <div class="form-container">
 
-    <div style="height: 26em; border: 1px solid cyan">
+  <div style="border: 1px solid cyan">
 
-      <div class="form-input-field-with-button">
-        <mat-form-field style="width: 20em">
-          <mat-label>Substring</mat-label>
-          <input matInput type='text' id="searchSubstring" required [(ngModel)]="model.searchSubstring" name="searchSubstring">
-        </mat-form-field>
-        <button  mat-flat-button  (click)="loadBySubstring(model.searchSubstring)">Search</button>
-      </div>
+    <div class="form-input-field-with-button">
+      <mat-form-field style="width: 20em">
+        <mat-label>Substring</mat-label>
+        <input matInput type='text' id="searchSubstring" required [(ngModel)]="model.searchSubstring"
+               name="searchSubstring">
+      </mat-form-field>
+      <button mat-flat-button (click)="loadBySubstring(model.searchSubstring)">Search</button>
+    </div>
 
-      <div class="form-input-field-with-button">
-        <mat-form-field style="width: 20em">
-          <mat-label>Key</mat-label>
-          <input matInput type='text' required [(ngModel)]="model.buffer.key" name="key">
-        </mat-form-field>
-        <button  mat-flat-button  (click)="createKey()">Create from Title</button>
-      </div>
+    <div class="form-input-field-with-button">
+      <mat-form-field style="width: 20em">
+        <mat-label>Key</mat-label>
+        <input matInput type='text' required [(ngModel)]="model.buffer.key" name="key">
+      </mat-form-field>
+      <button mat-flat-button (click)="createKey()">Create from Title</button>
+    </div>
 
-      <div style="display: flex; flex-flow: row nowrap; gap: 2em">
-        <mat-form-field style="width: 20em">
-          <mat-label>Title</mat-label>
-          <input matInput type='text' id="title" required [(ngModel)]="model.buffer.title" name="title">
-        </mat-form-field>
+    <div style="display: flex; flex-flow: row nowrap; gap: 2em">
+      <mat-form-field style="width: 20em">
+        <mat-label>Title</mat-label>
+        <input matInput type='text' id="title" required [(ngModel)]="model.buffer.title" name="title">
+      </mat-form-field>
 
-        <mat-form-field style="width: 20em">
-          <mat-label>Hindi</mat-label>
-          <input matInput type='text' id="hindi" required [(ngModel)]="model.buffer.hindi" name="hindi">
-        </mat-form-field>
+      <mat-form-field style="width: 20em">
+        <mat-label>Hindi</mat-label>
+        <input matInput type='text' id="hindi" required [(ngModel)]="model.buffer.hindi" name="hindi">
+      </mat-form-field>
 
-        <mat-form-field style="width: 20em">
-          <mat-label>Urdu</mat-label>
-          <input matInput type='text' id="urdu" required [(ngModel)]="model.buffer.urdu" name="urdu">
-        </mat-form-field>
-
-      </div>
-
-      <div style="display: flex; flex-flow: row nowrap; gap: 2em; align-items: flex-start">
-        <mat-form-field style="width: 20em">
-          <mat-label>Same As:</mat-label>
-          <input matInput type='text' id="sameAs" size="40" required [(ngModel)]="model.buffer.same_as" name="key">
-        </mat-form-field>
-
-        <mat-form-field style="width: 50em">
-          <mat-label>Description</mat-label>
-          <textarea matInput maxlength="500" class="description" id="description" required
-                    [(ngModel)]="model.buffer.description" name="description"></textarea>
-        </mat-form-field>
-      </div>
-
-
-      <div class="form-bottom-button-strip">
-        <button  mat-flat-button  (click)="insert()">Insert</button>
-        <button  mat-flat-button  (click)="clear()">Clear</button>
-      </div>
+      <mat-form-field style="width: 20em">
+        <mat-label>Urdu</mat-label>
+        <input matInput type='text' id="urdu" required [(ngModel)]="model.buffer.urdu" name="urdu">
+      </mat-form-field>
 
     </div>
 
+    <div style="display: flex; flex-flow: row nowrap; gap: 2em; align-items: flex-start">
+      <mat-form-field style="width: 20em">
+        <mat-label>Same As:</mat-label>
+        <input matInput type='text' id="sameAs" size="40" required [(ngModel)]="model.buffer.same_as" name="key">
+      </mat-form-field>
+
+      <mat-form-field style="width: 50em">
+        <mat-label>Description</mat-label>
+        <textarea matInput maxlength="500" class="description" id="description" required
+                  [(ngModel)]="model.buffer.description" name="description"></textarea>
+      </mat-form-field>
+    </div>
 
 
-  <div class="body">
-    <div *ngIf="model.tags !== undefined" class="item-list">
-      <div *ngFor="let mapEntry of this.model.tags" class="row">
+    <div class="form-bottom-button-strip">
+      <button mat-flat-button (click)="insert()">Insert</button>
+      <button mat-flat-button (click)="clear()">Clear</button>
+    </div>
 
-        <div style="display: flex; flex-flow: row nowrap; gap: 2em; align-items: flex-start">
+  </div>
+
+
+  <div *ngIf="model.tags !== undefined" class="item-list">
+    <div *ngFor="let mapEntry of this.model.tags" class="tag-row">
+      <div class="tag-row-cells">
+        <div class="tag-row-cells-row1">
 
           <mat-form-field style="width: 15em">
             <mat-label>Key</mat-label>
@@ -87,17 +84,15 @@
             <input matInput [(ngModel)]="mapEntry.urdu" readonly>
           </mat-form-field>
         </div>
-        <mat-form-field style="width: 60em">
+        <mat-form-field style="width: 80em">
           <mat-label>Description</mat-label>
           <textarea matInput [(ngModel)]="mapEntry.description" readonly></textarea>
         </mat-form-field>
-
-        <div class="form-bottom-button-strip">
-          <button mat-flat-button (click)="deleteByKey(mapEntry.key)">Delete</button>
-        </div>
-
       </div>
+      <button mat-flat-button (click)="deleteByKey(mapEntry.key)">Delete</button>
+
     </div>
+
 
   </div>
 

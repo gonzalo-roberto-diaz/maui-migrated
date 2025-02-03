@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {SelectorItem} from '../models/SelectorItem';
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +10,14 @@ export class SelectorsService {
 
   private allItems: SelectorItem[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.http.get<SelectorItem[]>('http://localhost:8090/selector/all', {})
+      .subscribe(
+      items => this.allItems = items);
+  }
 
   retrieveAllItems(): Observable<SelectorItem[]> {
-    return this.http.get<SelectorItem[]>('http://localhost:8090/selector/all', {});
+    return of(this.allItems);
   }
 
   selectByTitleSubstring(substring: string): SelectorItem[] {

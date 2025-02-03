@@ -12,7 +12,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatSelect} from '@angular/material/select';
+import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatButtonModule} from '@angular/material/button';
+import {MatInput} from '@angular/material/input';
+import {MatIcon} from '@angular/material/icon';
 
 
 
@@ -24,7 +27,7 @@ interface SearchType {
 @Component({
   selector: 'app-tags-per-song',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatAutocompleteModule, MatSelect, MatButtonModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, MatAutocompleteModule, MatSelect, MatButtonModule, MatFormField, MatInput, MatLabel, MatIcon],
   templateUrl: './tags-per-song.component.html',
   styleUrls: ['./tags-per-song.component.scss']
 })
@@ -171,6 +174,10 @@ export class TagsPerSongComponent implements OnInit, OnDestroy {
       subscribe(() => this.refreshList());
 
     }
+  }
+
+  clear(){
+    this.model = new TagsPerSongScreenModel();
   }
 
 }

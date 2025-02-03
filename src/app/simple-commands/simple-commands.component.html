@@ -1,19 +1,29 @@
+<app-messages></app-messages>
 <div class="form-container">
-  <div style="width: 100%; padding: 2em">
+  <div style="width: 100%; padding: 2em; font-size: larger">
     <mat-label>File Commands</mat-label>
   </div>
 
   <div class="form-input-field-with-button">
 
-    <mat-form-field style="width: 20em;">
-      <mat-label>URL Key</mat-label>
-      <input matInput type="text" class="form-control lang-text" style="margin-right: 5px" id="urlKey" required [(ngModel)]="fileName" name="urlKey"  [formControl]="myControl" [matAutocomplete]="auto">
-      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)='somethingSelected($event.option.value)'>
-        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-          {{option.key}}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
+  <mat-form-field style="width: 20em;">
+    <mat-label>Song URL Key</mat-label>
+    <input
+      type="text"
+      matInput
+      [(ngModel)]="model.searchQuery"
+      [matAutocomplete]="auto"
+      name="searchQuery"
+      placeholder="Search..."
+      (input)="search(model.searchQuery)"
+    />
+
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event.option.value)">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+        {{ option.key }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
     <button  mat-flat-button  (click)="reingestFrom()">Re-ingest from</button>
     <button  mat-flat-button  (click)="reindexFrom()">Re-index from</button>
     <button  mat-flat-button  (click)="htmlDescription()">HTML description</button>
@@ -21,7 +31,7 @@
     <button  mat-flat-button  (click)="regenerateTagJsonLdsStartingFrom()">Tag JSON-LD from</button>
   </div>
 
-  <div style="width: 100%; padding: 2em">
+  <div style="width: 100%; padding: 2em; font-size: larger">
     <mat-label>Global Commands</mat-label>
   </div>
 

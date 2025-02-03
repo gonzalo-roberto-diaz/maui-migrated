@@ -6,11 +6,12 @@ import {InflectedItem} from '../../models/InflectedItem';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatInput} from '@angular/material/input';
 
 @Component({
   selector: 'app-update-inflected-dialog',
   standalone: true,
-  imports: [FormsModule, MatFormFieldModule, MatDialogModule, ReactiveFormsModule],
+  imports: [FormsModule, MatFormFieldModule, MatDialogModule, ReactiveFormsModule, MatInput],
   templateUrl: './update-inflected-dialog.component.html',
   styleUrls: ['./update-inflected-dialog.component.css']
 })

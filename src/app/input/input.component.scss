@@ -2,7 +2,7 @@
   display:flex;
   flex-flow: column;
   align-items: flex-start;
-  padding: 3em;
+  padding: 1em;
 }
 
 .form-input-field-with-button {
@@ -18,3 +18,9 @@
   justify-content: flex-end;
   gap: 1em; width: 100%;
 }
+ .error{
+   background-color: #ebccd1;
+   color: black;
+   padding: 1em;
+   width: 100%;
+ }

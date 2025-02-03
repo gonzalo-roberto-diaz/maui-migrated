@@ -7,22 +7,26 @@
     <button mat-flat-button style="margin-right: 5px" (click)="latinToIPAClicked()">Latin to IPA</button>
   </div>
   <div class="panels">
-    <label for="hindiArea">Hindi</label>
-    <div class="languagePanel">
-      <textarea id="hindiArea" [(ngModel)]="model.hindi"></textarea>
-    </div>
-    <label for="latinArea">Latin - II Forum</label>
-    <div class="languagePanel">
-      <textarea id="latinArea" [(ngModel)]="model.latin"></textarea>
-    </div>
-    <label for="ipaArea">Latin - IPA</label>
-    <div class="languagePanel">
-      <textarea id="ipaArea" [(ngModel)]="model.ipa"></textarea>
-    </div>
-    <label for="urduArea">Urdu</label>
-    <div class="languagePanel">
-      <textarea id="urduArea" [(ngModel)]="model.urdu"></textarea>
-    </div>
+    <mat-form-field style="width: 90%; height: 10em">
+      <mat-label>Hindi</mat-label>
+      <textarea matInput id="hindiArea" [(ngModel)]="model.hindi"></textarea>
+    </mat-form-field>
+
+    <mat-form-field style="width: 90%; height: 10em">
+      <mat-label>Latin - II Forum</mat-label>
+      <textarea matInput id="latinArea" [(ngModel)]="model.latin"></textarea>
+    </mat-form-field>
+
+    <mat-form-field style="width: 90%; height: 10em">
+      <mat-label>Latin - IPA</mat-label>
+      <textarea matInput id="ipaArea" [(ngModel)]="model.ipa"></textarea>
+    </mat-form-field>
+
+    <mat-form-field style="width: 90%; height: 10em">
+      <mat-label>Urdu</mat-label>
+      <textarea matInput id="urduArea" [(ngModel)]="model.urdu"></textarea>
+    </mat-form-field>
+
   </div>
   <div class="message">{{model.message}}</div>
 </div>

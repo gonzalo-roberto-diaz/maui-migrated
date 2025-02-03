@@ -1,45 +1,48 @@
 <div class="main-container">
   <div class="header">
-    <div class="row-values">
-      <div class="form-row">
-        <label for="songSelector" class="form-label">Song</label>
-        <input type="text" class="form-control lang-text" id="songSelector" required [(ngModel)]="model.selectedSong" name="songSelector" [formControl]="songSelectionControl" [matAutocomplete]="autoSong">
+
+    <div style="display: flex; flex-flow: row nowrap; gap: 1em">
+
+      <div class="form-input-field-with-button">
+        <mat-form-field style="width: 20em;">
+          <mat-label>Song</mat-label>
+          <input matInput type="text" required [(ngModel)]="model.selectedSong" [formControl]="songSelectionControl" [matAutocomplete]="autoSong">
+          <mat-autocomplete #autoSong [displayWith]="displayFn" (optionSelected)='someSongSelected($event.option.value)'>
+            <mat-option *ngFor="let option of filteredSongOptions | async" [value]="option">
+              {{option.key}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <mat-icon (click)="selectLinksBySong()">search</mat-icon>
       </div>
-      <mat-autocomplete #autoSong="matAutocomplete" [displayWith]="displayFn" (optionSelected)='someSongSelected($event.option.value)'>
-        <mat-option *ngFor="let option of filteredSongOptions | async" [value]="option">
-          {{option.key}}
-        </mat-option>
-      </mat-autocomplete>
 
-      <div class="separated-horizontally"></div>
-
-      <div class="form-row">
-        <label for="tagSelector" class="form-label">Tag </label>
-        <input type="text" class="form-control lang-text" id="tagSelector" required [(ngModel)]="model.selectedTag" name="tagSelector" [formControl]="tagSelectionControl" [matAutocomplete]="autoTag">
+      <div class="form-input-field-with-button">
+      <mat-form-field style="width: 20em;">
+        <mat-label>Tag</mat-label>
+        <input matInput type="text"  required  [(ngModel)]="model.selectedTag"  [formControl]="tagSelectionControl" [matAutocomplete]="autoTag">
+        <mat-autocomplete #autoTag [displayWith]="displayFn" (optionSelected)='someTagelected($event.option.value)'>
+          <mat-option *ngFor="let option of filteredTagOptions | async" [value]="option">
+            {{option.key}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+        <mat-icon (click)="selectLinksByTag()">search</mat-icon>
       </div>
-      <mat-autocomplete #autoTag="matAutocomplete" [displayWith]="displayFn" (optionSelected)='someTagelected($event.option.value)'>
-        <mat-option *ngFor="let option of filteredTagOptions | async" [value]="option">
-          {{option.key}}
-        </mat-option>
-      </mat-autocomplete>
 
-      <div class="separated-horizontally"></div>
-
-      <div class="form-row">
-        <label for="linkType" class="form-label">Link Type</label>
+      <mat-form-field style="width: 20em;">
+        <mat-label>Link Type</mat-label>
         <mat-select [(ngModel)]="model.selectedType" name="linkType" ngDefaultControl  id="linkType">
           <mat-option *ngFor="let linkType of linkTypes" [value]="linkType.value">
             {{linkType.viewValue}}
           </mat-option>
         </mat-select>
-      </div>
+      </mat-form-field>
 
 
     </div>
     <div class="button-row" >
       <button mat-flat-button (click)="createLink()">Create Link</button>
-      <button mat-flat-button (click)="selectLinksBySong()">Select by Song</button>
-      <button mat-flat-button (click)="selectLinksByTag()">Select by Tag</button>
+      <button mat-flat-button (click)="clear()">Clear</button>
     </div>
   </div>
 
