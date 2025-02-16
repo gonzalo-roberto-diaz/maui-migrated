@@ -5,34 +5,17 @@ import {Observable, throwError} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class SimpleCommandsService {
 
-  constructor(private http: HttpClient, private messagesService: MessagesService) { }
+  constructor(private http: HttpClient) { }
 
 
   regenerateStats(): Observable<string> {
-    return this.http.put<string>(`http://localhost:8090/utils/stats` , {})
-      .pipe(
-        tap( () => this.messagesService.showMessages('Spell check regenerated!')),
-        catchError(error => {
-          const message = 'Error regenerating stats';
-          this.messagesService.showErrors(message, error.error.message);
-          return throwError(error);
-        })
-      );
+    return this.http.put<string>(`http://localhost:8090/utils/stats` , {});
   }
 
   regenerateSpellCheck(): Observable<string> {
-    return this.http.put<string>('http://localhost:8090/spellcheck/regenerate', {})
-      .pipe(
-        tap(() => this.messagesService.showMessages('Spell check regenerated!')),
-        catchError(error => {
-          this.messagesService = error.error;
-          return throwError(error);
-        })
-      );
+    return this.http.put<string>('http://localhost:8090/spellcheck/regenerate', {});
   }
 }

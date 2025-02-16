@@ -1,14 +1,17 @@
+<app-messages></app-messages>
 <div class="form-container">
-
   <div class="form-input-field-with-button">
 
     <mat-form-field style="width: 20em;">
       <mat-label>URL Key</mat-label>
-      <input matInput type="text" class="form-control lang-text" id="urlKey" required [(ngModel)]="model.urlKey"
-             name="urlKey" [formControl]="myControl" [matAutocomplete]="auto">
-      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
-                        (optionSelected)='somethingSelected($event.option.value)'>
-        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+      <input
+        matInput type="text"
+        [(ngModel)]="model.searchQuery"
+        [matAutocomplete]="auto"
+        name="searchQuery"
+        (input)="search(model.searchQuery)">
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)='onOptionSelected($event.option.value)'>
+        <mat-option *ngFor="let option of filteredOptions$ | async" [value]="option">
           {{option.key}}
         </mat-option>
       </mat-autocomplete>
@@ -23,5 +26,15 @@
 
   <br/>
   <br/>
-  <span class="error">{{model.message}}</span>
+  <div style="text-align: justify; border: 1px solid darkgrey; font-style: italic; padding: 1em; color: darkslategray">
+    This screen transforms the text files of a song into DB entries.<br/>
+    Use it after the "Inflection Table" text file for a song has been created.<br/>
+    <br/>
+    First, the <strong>Index Word</strong> button reads the song lyrics and compares that its words are sequenced against
+    the entries in the "inflected table" text file. Then, the  "inflected" and "master" tokens in the "inflection table" file are
+    matched against the inflected/master information we have in the DB for those words. It thens links generally those tokens with a song record.<br/>
+    If every check succeeds, the tokenized information of the song is written to the DB, re-creating the song's structure based on DB-written tokens.
+    <br/>
+    Secondly, the <strong>Ingest</strong> button takes those already standardized entries, and re-creates with them the song's structure in the DB.
+  </div>
 </div>

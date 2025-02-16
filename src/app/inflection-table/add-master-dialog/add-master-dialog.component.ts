@@ -5,13 +5,15 @@ import {InflectionTableModel} from '../../models/InflectionTableModel';
 import {NgForm} from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatInput} from "@angular/material/input";
+import {MatButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-add-master',
   standalone: true,
-  imports: [FormsModule, MatFormFieldModule],
+  imports: [FormsModule, MatFormFieldModule, MatInput, MatButton],
   templateUrl: './add-master-dialog.component.html',
-  styleUrls: ['./add-master-dialog.component.css']
+  styleUrls: ['./add-master-dialog.component.scss']
 })
 export class AddMasterDialogComponent implements OnInit, OnDestroy {
 

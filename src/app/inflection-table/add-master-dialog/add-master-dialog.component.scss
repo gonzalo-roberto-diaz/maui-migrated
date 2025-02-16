@@ -29,3 +29,10 @@ button {
 .button-strip button{
   width: 100px;
 }
+
+.form-bottom-button-strip {
+  display:flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+  gap: 1em; width: 100%;
+}

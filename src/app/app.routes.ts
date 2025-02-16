@@ -13,7 +13,8 @@ import {TagsPerSongComponent} from "./tags-per-song/tags-per-song.component";
 
 
 export const routes: Routes = [
-  { path: '', pathMatch: 'full', component: InputComponent },
+  { path: '', redirectTo: '/word-input', pathMatch: 'full' },
+  { path: 'word-input', component: InputComponent },
   { path: 'dictionary', component: DictionaryComponent },
   { path: 'song-input', component: SongInputComponent },
   { path: 'song-commands', component: SimpleCommandsComponent },

@@ -13,6 +13,7 @@ import {MatInput} from '@angular/material/input';
 import {MatOption, MatSelect} from '@angular/material/select';
 import {MatCheckbox} from '@angular/material/checkbox';
 import {SearchType} from '../SearchType';
+import {InputAccidence} from '../models/InputAccidence';
 
 
 @Component({
@@ -25,6 +26,8 @@ import {SearchType} from '../SearchType';
 export class InputComponent implements OnInit, OnDestroy {
 
   public model = new InputModel();
+
+  public accidenceOptions = Object.values(InputAccidence) as InputAccidence[];
 
 
   public partOfSpeechComboValues = Object.keys(PartOfSpeech).map(strName => new SearchType(strName, strName));
@@ -53,11 +56,7 @@ export class InputComponent implements OnInit, OnDestroy {
     this.model.inputView.part_of_speech = EnumUtils.partOfSpeechFromString(event.target.value);
   }
 
-  changedAccidence(event: Event): void {
-    console.log('accidence');
-    // @ts-ignore
-    this.model.inputView.accidence = [EnumUtils.accidenceFromString(event.target.value)];
-  }
+
 
   validate(): boolean {
     if (this.model.inputView.part_of_speech === PartOfSpeech.None) {
@@ -121,6 +120,11 @@ export class InputComponent implements OnInit, OnDestroy {
     this.httpClient.post<InputView>('http://localhost:8090/multiinput/insertall', this.model.inputView).toPromise()
       .then(() => this.model.message = 'Success!')
       .catch(reason => this.model.message = reason.message);
+  }
+
+  onSelectionChange(selectedValue: InputAccidence) {
+    // Update accidence based on selection
+    this.model.inputView.accidence = (selectedValue === InputAccidence.None) ? [] : [selectedValue];
   }
 
 }

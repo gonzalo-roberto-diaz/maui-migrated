@@ -12,20 +12,18 @@
       <input matInput type='number' id="index" required [(ngModel)]="model.inputView.index" name="index">
     </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Accidence</mat-label>
-      <mat-select [(ngModel)]="model.inputView.accidence" [ngModelOptions]="{standalone: true}">
-        <mat-option [value]="''">[NONE]</mat-option>
-        <mat-option [value]="'MASCULINE'">Masculine</mat-option>
-        <mat-option [value]="'FEMININE'">Feminine</mat-option>
-      </mat-select>
-    </mat-form-field>
+  <mat-form-field>
+    <mat-label>Select Accidence</mat-label>
+    <mat-select (selectionChange)="onSelectionChange($event.value)">
+      <mat-option *ngFor="let option of accidenceOptions" [value]="option">
+        {{ option }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
     <mat-checkbox [(ngModel)]="model.inputView.show_canonical">Show Canonical</mat-checkbox>
 
     <mat-checkbox [(ngModel)]="model.inputView.treat_as_invariable">Treat as invariable</mat-checkbox>
-
-    <mat-checkbox [(ngModel)]="model.inputView.add_inflected">Add Inflected</mat-checkbox>
 
 
     <mat-form-field>

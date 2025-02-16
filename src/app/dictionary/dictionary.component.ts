@@ -29,7 +29,7 @@ export class DictionaryComponent implements OnInit, OnDestroy {
 
   private lastSearch = 'byMorphology';
 
-  public partOfSpeechComboValues =  Object.keys(PartOfSpeech).map(strName => new SearchType(strName, strName));
+  public partOfSpeechComboValues  = Object.values(PartOfSpeech);
 
 
   constructor(private dataService: DataService, public globals: GlobalsService,  public dialog: MatDialog) { }

@@ -46,6 +46,7 @@ export class MessagesComponent implements OnInit {
   onClose() {
     this.showMessages = false;
     this.showErrors = false;
+    this.messagesService.clear();
   }
 
 }

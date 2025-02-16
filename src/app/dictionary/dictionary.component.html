@@ -24,13 +24,15 @@
         <input type="text" matInput class="form-control lang-text"  required [(ngModel)]="model.meaning">
       </mat-form-field>
       <mat-form-field style="width: 15em">
-        <mat-select [(ngModel)]="model.partOfSpeech" placeholder="Part of Speech">
-          <mat-option *ngFor="let partOfSpeech of partOfSpeechComboValues" [value]="partOfSpeech.value">
-            {{partOfSpeech.value}}
+        <mat-label>Part of Speech</mat-label>
+        <mat-select [(value)]="model.partOfSpeech">
+          <mat-option *ngFor="let partOfSpeech of partOfSpeechComboValues" [value]="partOfSpeech">
+            {{ partOfSpeech }}
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <mat-icon (click)="morphologyClicked()">search</mat-icon>
+
+      <mat-icon (click)="meaningClicked()">search</mat-icon>
     </div>
 
     <div class="form-input-field-with-button">

@@ -126,7 +126,8 @@ export class InflectedComponent implements OnInit, OnDestroy {
       inflected_urdu: '',
       inflected_romanized: '',
       accidenceString: '',
-      partOfSpeech: ''
+      partOfSpeech: '',
+      override_accicence_validation: false
     };
 
     const dialogRef = this.dialog.open(InflectedInsertDialogComponent, dialogConfig);

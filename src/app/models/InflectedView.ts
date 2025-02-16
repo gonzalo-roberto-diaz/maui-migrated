@@ -13,4 +13,6 @@ export class InflectedView {
   inflected_hindi_index = 0;
   inflected_urdu = '';
   inflected_romanized = '';
+
+  override_accidence_validation = false;
 }

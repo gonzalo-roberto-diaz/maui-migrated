@@ -11,18 +11,20 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 
 @Component({
   selector: 'app-inflected-update-dialog',
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule, MatSelectModule, MatDialogModule, MatButtonModule],
+  imports: [CommonModule, MatFormFieldModule, MatInputModule, FormsModule, ReactiveFormsModule, MatSelectModule, MatDialogModule, MatButtonModule, MatCheckboxModule],
   templateUrl: './inflected-insert-dialog.component.html',
-  styleUrls: ['./inflected-insert-dialog.component.css']
+  styleUrls: ['./inflected-insert-dialog.component.scss']
 })
 export class InflectedInsertDialogComponent implements OnInit {
 
-  public partOfSpeechComboValues = Object.keys(PartOfSpeech).map(strName => new SearchType(strName, strName));
+  // public partOfSpeechComboValues = Object.keys(PartOfSpeech).map(strName => new SearchType(strName, strName));
+  public partOfSpeechComboValues = Object.values(PartOfSpeech);
 
   form: FormGroup;
 
@@ -32,7 +34,7 @@ export class InflectedInsertDialogComponent implements OnInit {
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<InflectedInsertDialogComponent>,
     private dataService: DataService, @Inject(MAT_DIALOG_DATA) public inflectedView: InflectedView) {
-
+    console.log('entries ='+  Object.entries(PartOfSpeech));
     this.form = fb.group({
       master_dictionary_id: [inflectedView.master_dictionary_id, Validators.required],
       inflected_hindi: [inflectedView.inflected_hindi, Validators.required],
@@ -40,7 +42,8 @@ export class InflectedInsertDialogComponent implements OnInit {
       inflected_romanized: [inflectedView.inflected_romanized, Validators.required],
       inflected_hindi_index: [inflectedView.key_inflected_hindi_index, Validators.required],
       part_of_speech: [inflectedView.part_of_speech, Validators.required],
-      accidenceString: ['', Validators.required]
+      accidenceString: ['', Validators.required],
+      override_accidence_validation: [inflectedView.override_accidence_validation, Validators.required]
     });
   }
 
@@ -57,6 +60,7 @@ export class InflectedInsertDialogComponent implements OnInit {
     inflectedView.key_inflected_hindi = this.inflectedView.key_inflected_hindi;
     inflectedView.key_inflected_hindi_index = this.inflectedView.key_inflected_hindi_index;
     inflectedView.part_of_speech =   this.currentPoS.toString().toUpperCase();
+    inflectedView.override_accidence_validation = values.override_accidence_validation;
 
     let accidences: string[];
     if (values.accidenceString != null && values.accidenceString.length > 0) {
@@ -74,5 +78,9 @@ export class InflectedInsertDialogComponent implements OnInit {
 
   close() {
     this.dialogRef.close();
+  }
+
+  onSelectionChange(selectedValue: string) {
+    this.currentPoS = selectedValue as PartOfSpeech;
   }
 }

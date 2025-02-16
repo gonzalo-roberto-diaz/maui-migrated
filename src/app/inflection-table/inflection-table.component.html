@@ -12,7 +12,6 @@
             [(ngModel)]="model.searchQuery"
             [matAutocomplete]="auto"
             name="searchQuery"
-            placeholder="Search..."
             (input)="search(model.searchQuery)"
           />
           <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event.option.value)">

@@ -28,8 +28,8 @@
   <mat-form-field>
     <mat-label>Part of Speech</mat-label>
     <mat-select [(ngModel)]="updateView.part_of_speech">
-      <mat-option  *ngFor="let partOfSpeech of partOfSpeechComboValues" [value]="partOfSpeech.value" >
-        {{partOfSpeech.viewValue}}
+      <mat-option  *ngFor="let partOfSpeech of partOfSpeechComboValues" [value]="partOfSpeech" >
+        {{partOfSpeech}}
       </mat-option>
     </mat-select>
   </mat-form-field>

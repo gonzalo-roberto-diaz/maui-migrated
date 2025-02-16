@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {InputView} from '../models/InputView';
 import {HttpClient} from '@angular/common/http';
-import {FormControl} from '@angular/forms';
 import {SongIngestionModel} from '../models/SongIngestionModel';
 import {SelectorItem} from '../models/SelectorItem';
-import {debounceTime, distinctUntilChanged, Observable, Subject, switchMap} from 'rxjs';
+import {debounceTime, distinctUntilChanged, Observable, of, Subject, switchMap, throwError} from 'rxjs';
 import {SelectorsService} from '../services/selector.service';
 import {catchError, map, startWith, tap} from 'rxjs/operators';
 import {ApiResponse} from "../models/ApiResponse";
@@ -15,16 +14,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInput} from "@angular/material/input";
-import {GlobalsService} from '../services/globals.service';
 import {SelectorItemType} from '../models/SelectorItemType';
 import {MessagesComponent} from '../messages/messages.component';
+import {MessagesService} from '../services/messages.service';
 
 @Component({
   selector: 'app-song-commands',
   standalone: true,
   imports: [CommonModule, MatSelectModule, FormsModule, ReactiveFormsModule, MatAutocompleteModule, MatButtonModule, MatInput, MessagesComponent],
   templateUrl: './simple-commands.component.html',
-  styleUrls: ['./simple-commands.component.scss']
+  styleUrls: ['./simple-commands.component.scss'],
+  providers: [SimpleCommandsService]
 })
 export class SimpleCommandsComponent implements OnInit {
 
@@ -39,7 +39,8 @@ export class SimpleCommandsComponent implements OnInit {
   //a subject to be notified every time we want to change the song search string
   private searchTerms = new Subject<string>();
 
-  constructor(private httpClient: HttpClient, private  selectorService: SelectorsService, private simpleCommandsService: SimpleCommandsService) {
+  constructor(private httpClient: HttpClient, private  selectorService: SelectorsService, private simpleCommandsService: SimpleCommandsService,
+              private messagesService: MessagesService) {
   }
 
   /**
@@ -118,20 +119,30 @@ export class SimpleCommandsComponent implements OnInit {
 
   regenerateOneTag() {
     this.message = '';
-    this.httpClient.put<ApiResponse>('http://localhost:8090/seo/jsonld/tag/regenerate_one/' + this.selectedItem.key,  {} ).toPromise()
-      .then(response => {
-        // @ts-ignore
-        return this.message = response.message;
-      })
-      .catch(reason => {
-        this.message = reason.error;
-      });
+    this.httpClient.put<ApiResponse>('http://localhost:8090/seo/jsonld/tag/regenerate_one/' + this.selectedItem.key, {})
+      .pipe(
+        catchError(err => {
+          this.messagesService.showErrors(err.error);
+          return throwError(err);
+        })
+      ).subscribe(response => {
+        this.messagesService.showMessages(`Tag ${this.selectedItem.key} regenerated successfully`);
+        console.log('spell check regeneration succeeded');
+    });
   }
 
 
 
   regenerateSpellCheck() {
-    this.simpleCommandsService.regenerateSpellCheck().subscribe();
+    this.simpleCommandsService.regenerateSpellCheck().pipe(
+      catchError(err => {
+        this.messagesService.showErrors(err.error);
+        return throwError(err);
+      })
+    ).subscribe(response => {
+      this.messagesService.showMessages('Spell Check regenerated successfully');
+      console.log('spell check regenerated successfully');
+    });
   }
 
   clearCaches() {

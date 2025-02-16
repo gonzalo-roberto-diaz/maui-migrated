@@ -19,6 +19,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatInput} from '@angular/material/input';
 import {SelectorItemType} from '../models/SelectorItemType';
+import {MessagesService} from '../services/messages.service';
 
 
 @Component({
@@ -44,7 +45,7 @@ export class InflectionTableComponent implements OnInit , OnDestroy {
 
 
   constructor(private globals: GlobalsService,
-              private selectorService: SelectorsService, public dialog: MatDialog,
+              private selectorService: SelectorsService, public dialog: MatDialog, private messagesService: MessagesService,
               private inflectionTableService: InflectionTableService) {
   }
 
@@ -92,7 +93,6 @@ export class InflectionTableComponent implements OnInit , OnDestroy {
   }
 
   getSong() {
-    this.model.message = '';
     this.inflectionTableService.getSong(this.model.selectedItem.key)
       .pipe(
         // tslint:disable-next-line:no-shadowed-variable
@@ -100,10 +100,11 @@ export class InflectionTableComponent implements OnInit , OnDestroy {
         catchError(err => {
           this.model.message = err;
           console.log(err);
+          this.messagesService.showErrors(err);
           return throwError(err);
         })
       ).subscribe(() => {
-        this.model.message = 'Song loaded!';
+        this.messagesService.showMessages('Song loaded!')
     });
   }
 
@@ -159,6 +160,7 @@ export class InflectionTableComponent implements OnInit , OnDestroy {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = '400px';
+
 
     // @ts-ignore
     const entryText = mapEntry.text;

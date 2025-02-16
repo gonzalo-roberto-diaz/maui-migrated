@@ -25,15 +25,11 @@
 
   <mat-form-field>
     <mat-label>Part of Speech</mat-label>
-  <mat-select [(value)]="currentPoS">
-    <mat-select-trigger>
-      {{currentPoS.toString()}}
-    </mat-select-trigger>
-
-    <mat-option  *ngFor="let partOfSpeech of partOfSpeechComboValues" [value]="partOfSpeech.value">
-      {{partOfSpeech.value}}
-    </mat-option>
-  </mat-select>
+    <mat-select [(value)]="currentPoS">
+      <mat-option *ngFor="let partOfSpeech of partOfSpeechComboValues" [value]="partOfSpeech">
+        {{ partOfSpeech }}
+      </mat-option>
+    </mat-select>
     </mat-form-field>
 
   <mat-form-field>
@@ -54,6 +50,9 @@
            placeholder="Romanized"
            formControlName="inflected_romanized">
   </mat-form-field>
+
+
+    <mat-checkbox formControlName="override_accidence_validation">Override accidence validation</mat-checkbox>
 
 
 </mat-dialog-content>

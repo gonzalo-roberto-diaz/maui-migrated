@@ -12,15 +12,11 @@ export class MessagesService {
 
   private messagesSubject = new BehaviorSubject<string[]>([]);
 
-  errors$: Observable<string[]> = this.errorsSubject.asObservable()
-    .pipe(
-      filter(item => item && item.length > 0)
-    );
+  errors$: Observable<string[]> = this.errorsSubject.asObservable();
 
-  messages$: Observable<string[]> = this.messagesSubject.asObservable()
-    .pipe(
-      filter(item => item && item.length > 0)
-    );
+
+  messages$: Observable<string[]> = this.messagesSubject.asObservable();
+
 
   showErrors(...errors: string[]) {
     this.errorsSubject.next(errors);
@@ -28,6 +24,11 @@ export class MessagesService {
 
   showMessages(...messages: string[]) {
     this.messagesSubject.next(messages);
+  }
+
+  clear() {
+    this.messagesSubject.next([]);
+    this.errorsSubject.next([]);
   }
 
 }

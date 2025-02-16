@@ -22,8 +22,7 @@ import { CommonModule } from '@angular/common';
 export class DictionaryUpdateDialogComponent implements OnInit {
 
   linkTypes: SearchType[] = [];
-  public partOfSpeechComboValues: SearchType[] =
-    Object.keys(PartOfSpeech).map(s => new SearchType(s.valueOf().toUpperCase(), s.valueOf().toUpperCase()));
+  public partOfSpeechComboValues = Object.values(PartOfSpeech);
 
   currentPoS: SearchType = new SearchType('NOUN', PartOfSpeech.Noun.valueOf());
 

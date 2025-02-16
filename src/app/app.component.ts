@@ -19,8 +19,8 @@ export class AppComponent {
   onTabChange(event: MatTabChangeEvent): void {
     console.log(event.tab.textLabel);
     switch (event.tab.textLabel) {
-      case "Input":
-        this.router.navigate(['/']);
+      case "Word Input":
+        this.router.navigate(['/word-input']);
         break;
       case "Dictionary":
         this.router.navigate(['/dictionary']);
