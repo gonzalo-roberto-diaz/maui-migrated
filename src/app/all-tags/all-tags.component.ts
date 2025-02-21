@@ -116,5 +116,15 @@ export class AllTagsComponent implements OnInit, OnDestroy {
       ).subscribe();
   }
 
+  update(tag: TagView) {
+    this.tagsService.update(tag)
+      .pipe(
+        catchError((err, caught) => {
+          alert('The tag could NOT be updated!');
+          return caught;
+        })
+      ).subscribe(() =>  alert('Tag updated successfully'));
+  }
+
 
 }

@@ -59,7 +59,10 @@
   </div>
 
 
-  <div *ngIf="model.tags !== undefined" class="item-list">
+</div>
+
+
+<div *ngIf="model.tags !== undefined" class="item-list">
     <div *ngFor="let mapEntry of this.model.tags" class="tag-row">
       <div class="tag-row-cells">
         <div class="tag-row-cells-row1">
@@ -71,28 +74,29 @@
 
           <mat-form-field style="width: 15em">
             <mat-label>Title</mat-label>
-            <input matInput [(ngModel)]="mapEntry.title" readonly>
+            <input matInput [(ngModel)]="mapEntry.title" >
           </mat-form-field>
 
           <mat-form-field style="width: 15em">
             <mat-label>Hindi</mat-label>
-            <input matInput [(ngModel)]="mapEntry.hindi" readonly>
+            <input matInput [(ngModel)]="mapEntry.hindi" >
           </mat-form-field>
 
           <mat-form-field style="width: 15em">
             <mat-label>Urdu</mat-label>
-            <input matInput [(ngModel)]="mapEntry.urdu" readonly>
+            <input matInput [(ngModel)]="mapEntry.urdu" >
           </mat-form-field>
         </div>
-        <mat-form-field style="width: 80em">
+        <mat-form-field style="width: 105em;">
           <mat-label>Description</mat-label>
-          <textarea matInput [(ngModel)]="mapEntry.description" readonly></textarea>
+          <textarea matInput rows="3" [(ngModel)]="mapEntry.description" ></textarea>
         </mat-form-field>
       </div>
-      <button mat-flat-button (click)="deleteByKey(mapEntry.key)">Delete</button>
+      <div style="display: flex; flex-flow: column nowrap; gap: 1em">
+        <button mat-flat-button (click)="deleteByKey(mapEntry.key)">Delete</button>
+        <button mat-flat-button (click)="update(mapEntry)">Update</button>
+      </div>
 
     </div>
 
-
-  </div>
 

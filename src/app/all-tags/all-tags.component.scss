@@ -100,7 +100,11 @@
 }
 
 .tag-row {
-  display: flex; flex-flow: row nowrap; gap: 1em; padding: 1em; border: 1px solid lightgray;
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 1em;
+  padding: 1em;
+  border: 1px solid lightgray;
 }
 
 .tag-row-cells {

@@ -49,6 +49,22 @@ export class TagsService {
       );
   }
 
+  update(tag: TagView): Observable<string> {
+
+    if (tag.same_as === '') {
+      tag.same_as = null;
+    }
+
+    return this.http.put<string>('http://localhost:8090/tag', tag)
+      .pipe(
+        catchError(error => {
+          const message = 'Error updating tag';
+          this.messagesService.showErrors(message, error.error.message);
+          return throwError(error);
+        })
+      );
+  }
+
   generateJsonDl(tagKey: string): Observable<string> {
     return this.http.put<string>(`http://localhost:8090/sep/tag/regenerate_one/${tagKey}` , {})
       .pipe(

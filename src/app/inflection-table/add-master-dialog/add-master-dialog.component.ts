@@ -28,7 +28,7 @@ export class AddMasterDialogComponent implements OnInit, OnDestroy {
     const values = form.value;
     // @ts-ignore
     const indexes = values.csvalues.split(',').map(x => +x);
-    this.inflectionTableService.insertMaster(this.inflectionTableModel, values.hindi,  indexes);
+    this.inflectionTableService.insertMaster(this.inflectionTableModel, values.hindi.toString().trim(),  indexes);
     this.dialogRef.close(this.inflectionTableModel) ;
   }
 
