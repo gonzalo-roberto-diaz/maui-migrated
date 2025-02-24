@@ -14,12 +14,14 @@ import {MatOption, MatSelect} from '@angular/material/select';
 import {MatCheckbox} from '@angular/material/checkbox';
 import {SearchType} from '../SearchType';
 import {InputAccidence} from '../models/InputAccidence';
+import {MessagesComponent} from '../messages/messages.component';
+import {MessagesService} from '../services/messages.service';
 
 
 @Component({
   selector: 'app-input',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatButtonModule, MatFormField, MatLabel, MatInput, MatSelect, MatOption, MatCheckbox],
+  imports: [CommonModule, FormsModule, MatButtonModule, MatFormField, MatLabel, MatInput, MatSelect, MatOption, MatCheckbox, MessagesComponent],
   templateUrl: './input.component.html',
   styleUrl: './input.component.scss'
 })
@@ -32,7 +34,7 @@ export class InputComponent implements OnInit, OnDestroy {
 
   public partOfSpeechComboValues = Object.keys(PartOfSpeech).map(strName => new SearchType(strName, strName));
 
-  constructor(private httpClient: HttpClient, public globals: GlobalsService) {
+  constructor(private httpClient: HttpClient, public globals: GlobalsService, private messagesService: MessagesService) {
   }
 
   ngOnInit() {
@@ -60,25 +62,25 @@ export class InputComponent implements OnInit, OnDestroy {
 
   validate(): boolean {
     if (this.model.inputView.part_of_speech === PartOfSpeech.None) {
-      this.model.message = 'No Part of Speech selected';
+      this.messagesService.showErrors('No Part of Speech selected');
       return false;
     } else if (this.model.inputView.index < 0) {
-      this.model.message = 'Index cannot be less than 0';
+      this.messagesService.showErrors('Index cannot be less than 0');
       return false;
     } else if (this.model.inputView.meaning === undefined || this.model.inputView.meaning.trim() === '') {
-      this.model.message = 'Meaning cannot be empty';
+      this.messagesService.showErrors( 'Meaning cannot be empty');
       return false;
     } else if (this.model.inputView.hindi === undefined || this.model.inputView.hindi.trim() === '') {
-      this.model.message = 'Hindi cannot be empty';
+      this.messagesService.showErrors('Hindi cannot be empty');
       return false;
     } else if (this.model.inputView.urdu === undefined || this.model.inputView.urdu.trim() === '') {
-      this.model.message = 'Urdu cannot be empty';
+      this.messagesService.showErrors('Urdu cannot be empty');
       return false;
     } else if (/\s/.test(this.model.inputView.urdu.trim())) {
-      this.model.message = 'The Urdu word cannot contain spaces of any kind';
+      this.messagesService.showErrors('The Urdu word cannot contain spaces of any kind');
       return false;
-    } else if ((typeof (this.model.inputView.accidence) === 'undefined' || this.model.inputView.accidence.length === 0) && this.model.inputView.part_of_speech === 'NOUN') {
-      this.model.message = 'Nouns need to be masculine or feminine';
+    } else if ((typeof (this.model.inputView.accidence) === 'undefined' || this.model.inputView.accidence.length === 0) && this.model.inputView.part_of_speech === 'NOUN'  && !this.model.inputView.treat_as_invariable) {
+      this.messagesService.showErrors('Nouns need to be masculine or feminine');
       return false;
     }
     this.model.inputView.urdu = this.model.inputView.urdu.trim();
@@ -94,7 +96,7 @@ export class InputComponent implements OnInit, OnDestroy {
       })
       .catch(reason => {
         console.log(reason);
-        this.model.message = reason.message;
+        this.messagesService.showErrors( reason.message);
       });
   }
 
@@ -118,8 +120,8 @@ export class InputComponent implements OnInit, OnDestroy {
     }
     this.model.message = '';
     this.httpClient.post<InputView>('http://localhost:8090/multiinput/insertall', this.model.inputView).toPromise()
-      .then(() => this.model.message = 'Success!')
-      .catch(reason => this.model.message = reason.message);
+      .then(() => this.messagesService.showMessages( 'Success!'))
+      .catch(reason => this.messagesService.showErrors( reason.message));
   }
 
   onSelectionChange(selectedValue: InputAccidence) {
