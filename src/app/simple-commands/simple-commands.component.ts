@@ -33,7 +33,7 @@ export class SimpleCommandsComponent implements OnInit {
   public model = new SongIngestionModel();
 
   filteredOptions = new Observable<SelectorItem[]>();
-  private selectedItem = new SelectorItem();
+
 
 
   //a subject to be notified every time we want to change the song search string
@@ -76,7 +76,7 @@ export class SimpleCommandsComponent implements OnInit {
 
   reingestFrom() {
     this.message = '';
-    this.httpClient.put<InputView>('http://localhost:8090/utils/ingestStartingWith', {}, {params: {urlKey: this.selectedItem.key}}).toPromise()
+    this.httpClient.put<InputView>('http://localhost:8090/utils/ingestStartingWith', {}, {params: {urlKey: this.model.selectedItem.key}}).toPromise()
       .then(() => this.message = 'Reingestion successful!')
       .catch(reason => {
         this.message = reason.error;
@@ -85,7 +85,7 @@ export class SimpleCommandsComponent implements OnInit {
 
   reindexFrom() {
     this.message = '';
-    this.httpClient.put<InputView>('http://localhost:8090/utils/indexStartingWith',  {}, {params: {urlKey: this.selectedItem.key}} ).toPromise()
+    this.httpClient.put<InputView>('http://localhost:8090/utils/indexStartingWith',  {}, {params: {urlKey: this.model.selectedItem.key}} ).toPromise()
       .then(() => this.message = 'Word Indexation successful!')
       .catch(reason => {
         this.message = reason.error;
@@ -94,7 +94,7 @@ export class SimpleCommandsComponent implements OnInit {
 
   htmlDescription() {
     this.message = '';
-    this.httpClient.put('http://localhost:8090/utils/htmlDescription',  {}, {params: {urlKey: this.selectedItem.key}} ).toPromise()
+    this.httpClient.put('http://localhost:8090/utils/htmlDescription',  {}, {params: {urlKey: this.model.selectedItem.key}} ).toPromise()
       .then(response => {
         // @ts-ignore
         return this.message = response.html;
@@ -119,14 +119,14 @@ export class SimpleCommandsComponent implements OnInit {
 
   regenerateOneTag() {
     this.message = '';
-    this.httpClient.put<ApiResponse>('http://localhost:8090/seo/jsonld/tag/regenerate_one/' + this.selectedItem.key, {})
+    this.httpClient.put<ApiResponse>('http://localhost:8090/seo/jsonld/tag/regenerate_one/' + this.model.selectedItem.key, {})
       .pipe(
         catchError(err => {
           this.messagesService.showErrors(err.error);
           return throwError(err);
         })
       ).subscribe(response => {
-        this.messagesService.showMessages(`Tag ${this.selectedItem.key} regenerated successfully`);
+        this.messagesService.showMessages(`Tag ${this.model.selectedItem.key} regenerated successfully`);
         console.log('spell check regeneration succeeded');
     });
   }
@@ -183,8 +183,8 @@ export class SimpleCommandsComponent implements OnInit {
 
   regenerateTagJsonLdsStartingFrom() {
     this.message = '';
-    this.httpClient.put<InputView>('http://localhost:8090/seo/jsonld/tag/regenerate_starting_with', {}, {params: {tagKey: this.selectedItem.key}}).toPromise()
-      .then(() => this.message = 'Tag JsonLds regeneration starting with ' + this.selectedItem.key + ' was  successful!')
+    this.httpClient.put<InputView>('http://localhost:8090/seo/jsonld/tag/regenerate_starting_with', {}, {params: {tagKey: this.model.selectedItem.key}}).toPromise()
+      .then(() => this.message = 'Tag JsonLds regeneration starting with ' + this.model.selectedItem.key + ' was  successful!')
       .catch(reason => {
         this.message = reason.error;
       });
