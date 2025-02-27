@@ -1,0 +1,17 @@
+.form-container {
+  display: flex;
+  gap: 16px; /* Space between columns */
+}
+
+.form-column {
+  flex: 1; /* Makes both columns equal width */
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Space between form fields */
+}
+
+.full-width {
+  width: 100%;
+}
+
+

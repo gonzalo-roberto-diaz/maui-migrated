@@ -16,6 +16,7 @@ import {SearchType} from '../SearchType';
 import {InputAccidence} from '../models/InputAccidence';
 import {MessagesComponent} from '../messages/messages.component';
 import {MessagesService} from '../services/messages.service';
+import {WordUtils} from '../utils/WordUtils';
 
 
 @Component({
@@ -101,12 +102,7 @@ export class InputComponent implements OnInit, OnDestroy {
   }
 
   hyphenateUrdu() {
-    const hindi = this.model.inputView.hindi;
-    if (/\s/.test(hindi)) {
-      this.model.inputView.urdu = this.model.inputView.urdu.replace(/\s/g, '-');
-    } else {
-      this.model.inputView.urdu = this.model.inputView.urdu.replace(/\s/g, '~');
-    }
+    this.model.inputView.urdu = WordUtils.hyphenateUrdu(this.model.inputView.hindi, this.model.inputView.urdu);
   }
 
   resetForm(): void {

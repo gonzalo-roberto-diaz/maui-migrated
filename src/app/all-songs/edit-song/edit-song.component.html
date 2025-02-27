@@ -1,0 +1,54 @@
+<h2 mat-dialog-title>Edit Song</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="songForm">
+    <div class="form-container">
+      <!-- Left Column -->
+      <div class="form-column">
+        <mat-form-field appearance="outline">
+          <mat-label>Bollywood Name</mat-label>
+          <input matInput formControlName="bolly_name" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Hindi Title</mat-label>
+          <input matInput #hindiTitleInput formControlName="hindi_title" required>
+        </mat-form-field>
+
+        <mat-form-field  appearance="outline">
+          <mat-label>Urdu Title</mat-label>
+          <input matInput #urduTitleInput formControlName="urdu_title" required>
+          <button mat-icon-button matSuffix type="button" (click)="fixUrduTitle(urduTitleInput, hindiTitleInput)">
+            <mat-icon>build</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
+
+      <!-- Right Column -->
+      <div class="form-column">
+        <mat-form-field appearance="outline">
+          <mat-label>Video URL</mat-label>
+          <input matInput formControlName="video_url" type="url">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Release Date</mat-label>
+          <input matInput formControlName="release_date" type="date">
+        </mat-form-field>
+
+        <mat-checkbox formControlName="active">Active</mat-checkbox>
+      </div>
+    </div>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Description</mat-label>
+      <textarea matInput formControlName="description" rows="12"></textarea>
+    </mat-form-field>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="songForm.invalid">Save</button>
+</mat-dialog-actions>

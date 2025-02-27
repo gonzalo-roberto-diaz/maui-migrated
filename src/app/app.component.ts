@@ -25,8 +25,8 @@ export class AppComponent {
       case "Dictionary":
         this.router.navigate(['/dictionary']);
         break;
-      case "Song Input":
-        this.router.navigate(['/song-input']);
+      case "All Songs":
+        this.router.navigate(['/all-songs']);
         break;
       case "Simple Commands":
         this.router.navigate(['/song-commands']);

@@ -1,0 +1,49 @@
+<!--<div class="container">-->
+  <!-- Fixed Header -->
+  <div class="header">
+    <!-- Styled Search Input with Magnifier -->
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Search</mat-label>
+      <input matInput #songSearch >
+      <button mat-icon-button matSuffix type="button" (click)="findSongs(songSearch.value)" class="icon-button">
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+    <!-- Styled Add Song Button -->
+    <button mat-raised-button  color="primary" (click)="openInsertDialog()">
+      <mat-icon>add</mat-icon> Add Song
+    </button>
+  </div>
+
+  <!-- Table Header -->
+  <div class="song-list-header">
+    <span class="col-name">Bollywood Name</span>
+    <span class="col-name">URL Key</span>
+    <span class="col-title">Hindi Title</span>
+    <span class="col-title">Urdu Title</span>
+    <span class="col-date">Release Date</span>
+    <span class="col-status">Active</span>
+    <span class="col-actions">Actions</span>
+  </div>
+
+  <!-- Scrollable Detail List (Tabular Format) -->
+  <div class="detail-list">
+    <div *ngFor="let song of songs$ | async" class="song-row">
+      <span class="col-name">{{ song.bolly_name }}</span>
+      <span class="col-name">{{ song.url_key }}</span>
+      <span class="col-title">{{ song.hindi_title }}</span>
+      <span class="col-title">{{ song.urdu_title }}</span>
+      <span class="col-date">{{ song.release_date | date:'yyyy-MM-dd' }}</span>
+      <span class="col-status">{{ song.active ? '✔' : '✖' }}</span>
+
+      <!-- Actions Column -->
+      <span class="col-actions">
+      <button mat-icon-button (click)="openEditDialog(song)">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </span>
+    </div>
+  </div>
+
+
+<!--</div>-->

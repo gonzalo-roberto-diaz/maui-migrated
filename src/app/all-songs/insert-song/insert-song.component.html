@@ -1,0 +1,44 @@
+<h2 mat-dialog-title>Add a New Song</h2>
+
+<mat-dialog-content>
+  <div *ngIf="errorMessage" class="error-message">
+    ⚠️ {{ errorMessage }}
+  </div>
+
+  <div style="height: 2em"></div>
+
+  <form [formGroup]="songForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Bollywood Name</mat-label>
+      <input matInput formControlName="bolly_name" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Hindi Title</mat-label>
+      <input matInput  #hindiTitleInput formControlName="hindi_title" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Urdu Title</mat-label>
+      <input matInput #urduTitleInput formControlName="urdu_title" required>
+      <button mat-icon-button matSuffix type="button" (click)="fixUrduTitle(urduTitleInput, hindiTitleInput)">
+        <mat-icon>build</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Video URL</mat-label>
+      <input matInput formControlName="video_url" type="url">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Release Date</mat-label>
+      <input matInput formControlName="release_date" type="date">
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="songForm.invalid">Save</button>
+</mat-dialog-actions>
