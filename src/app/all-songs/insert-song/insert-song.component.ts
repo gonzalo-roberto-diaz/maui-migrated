@@ -19,6 +19,9 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {CommonModule} from '@angular/common';
 import {WordUtils} from '../../utils/WordUtils';
 import {MatIconModule} from '@angular/material/icon';
+import {TranslirerationService} from '../../services/translireration.service';
+import {catchError} from 'rxjs/operators';
+import {of} from 'rxjs';
 
 @Component({
   selector: 'app-insert-song',
@@ -42,12 +45,14 @@ export class InsertSongComponent {
     private fb: FormBuilder,
     private songsService: SongsService,
     private dialogRef: MatDialogRef<InsertSongComponent>,
+
+    private transliterationService: TranslirerationService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.songForm = this.fb.group({
       bolly_name: ['', Validators.required],
       hindi_title: ['', Validators.required],
-      urdu_title: ['', [Validators.required, this.noSpacesValidator]],
+      urdu_title: ['', Validators.required],
       video_url: ['', Validators.required],
       release_date: ['', Validators.required]
     });
@@ -74,11 +79,16 @@ export class InsertSongComponent {
     this.dialogRef.close(false); // Just close the dialog
   }
 
-  fixUrduTitle(urduInputElement: HTMLInputElement, hindiInputElement: HTMLInputElement, ){
-    const urduValue = urduInputElement.value || '';
-    const hindiValue = hindiInputElement.value || '';
-
-    const fixedValue = WordUtils.hyphenateUrdu(hindiValue, urduValue);
-    this.songForm.controls['urdu_title'].setValue(fixedValue);
+  hindiToUrdu (hindiTitleElement: HTMLInputElement): void {
+    const hindiTitleValue = hindiTitleElement.value || '';
+    this.transliterationService.hindiToUrdu(hindiTitleValue)
+      .pipe(
+        catchError(err => {
+          this.songForm.controls['urdu_title'].setValue("ERROR");
+          return of("");
+        })
+      ).subscribe(result =>
+      this.songForm.controls['urdu_title'].setValue(result)
+    );
   }
 }

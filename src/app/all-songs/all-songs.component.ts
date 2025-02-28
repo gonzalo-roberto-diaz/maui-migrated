@@ -25,13 +25,17 @@ export class AllSongsComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.findSongs('');
+    this.findSongsByBollyName('');
   }
 
 
 
-  findSongs(substring: string){
+  findSongsByBollyName(substring: string){
     this.songs$ = this.songsService.findByBollySubstring(substring);
+  }
+
+  findSongsByDescription(substring: string){
+    this.songs$ = this.songsService.findByDescriptionSubstring(substring);
   }
 
   onSearch(event: Event): void{
@@ -47,7 +51,7 @@ export class AllSongsComponent implements OnInit{
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.findSongs(''); // Refresh list only if a song was added
+        this.findSongsByBollyName(''); // Refresh list only if a song was added
       }
     });
   }
@@ -61,7 +65,7 @@ export class AllSongsComponent implements OnInit{
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result) this.findSongs(''); // Refresh list after update
+      if (result) this.findSongsByBollyName(''); // Refresh list after update
     });
   }
 

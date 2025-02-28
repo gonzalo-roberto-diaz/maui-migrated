@@ -21,7 +21,7 @@
     <mat-form-field appearance="outline">
       <mat-label>Urdu Title</mat-label>
       <input matInput #urduTitleInput formControlName="urdu_title" required>
-      <button mat-icon-button matSuffix type="button" (click)="fixUrduTitle(urduTitleInput, hindiTitleInput)">
+      <button mat-icon-button matSuffix type="button" (click)="hindiToUrdu(hindiTitleInput)">
         <mat-icon>build</mat-icon>
       </button>
     </mat-form-field>

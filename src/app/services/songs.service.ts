@@ -19,6 +19,10 @@ export class SongsService {
     return this.http.get<SongDB[]>( `http://localhost:8090/songs/find-by-bolly-substring`, {params: {bolly_substring: substring}});
   }
 
+  public findByDescriptionSubstring(substring: string): Observable<SongDB[]> {
+    return this.http.get<SongDB[]>( `http://localhost:8090/songs/find-by-description-substring`, {params: {description_substring: substring}});
+  }
+
   public createSongAndTemplate(song: SongDB): Observable<void> {
     return  this.http.post<void>('http://localhost:8090/songs/createsongtemplate', song)
       .pipe(
@@ -40,5 +44,42 @@ export class SongsService {
         catchError(this.handleError) // Handle errors
       )
   }
+
+
+  linkifyTags(text: string, tags: TagView[]): string {
+    let updatedText = text;
+    const linkedTags = new Set<string>(); // Keep track of linked tags
+
+    // Sort by title length (descending) to avoid partial replacements
+    tags.sort((a, b) => b.title.length - a.title.length);
+
+    for (const tag of tags) {
+      if (linkedTags.has(tag.key)) {
+        continue; // Skip if already linked
+      }
+
+      const titleRegex = new RegExp(`\\b${tag.title}\\b`, 'i'); // Match whole words (case-insensitive)
+      updatedText = updatedText.replace(titleRegex, (match, offset, fullText) => {
+        // Ensure match is not inside an existing <a> tag
+        const before = fullText.slice(0, offset);
+        const after = fullText.slice(offset + match.length);
+
+        if (before.endsWith('>') && after.startsWith('</a>')) {
+          return match; // Skip replacement if already linked
+        }
+
+        linkedTags.add(tag.key); // Mark this tag as linked
+        return `<a href="/tag/${tag.key}">${match}</a>`;
+      });
+    }
+
+    return updatedText;
+  }
+
+
+
+
+
+
 
 }

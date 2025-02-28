@@ -3,16 +3,28 @@
   <div class="header">
     <!-- Styled Search Input with Magnifier -->
     <mat-form-field appearance="outline" class="search-field">
-      <mat-label>Search</mat-label>
-      <input matInput #songSearch >
-      <button mat-icon-button matSuffix type="button" (click)="findSongs(songSearch.value)" class="icon-button">
+      <mat-label>Search by Bolly Name</mat-label>
+      <input matInput #songSearchByBollyName >
+      <button mat-icon-button matSuffix type="button" (click)="findSongsByBollyName(songSearchByBollyName.value)" class="icon-button">
         <mat-icon>search</mat-icon>
       </button>
     </mat-form-field>
+
+
+    <!-- Styled Search Input with Magnifier -->
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Search by Description</mat-label>
+      <input matInput #songSearchByDescription >
+      <button mat-icon-button matSuffix type="button" (click)="findSongsByDescription(songSearchByDescription.value)" class="icon-button">
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+
     <!-- Styled Add Song Button -->
     <button mat-raised-button  color="primary" (click)="openInsertDialog()">
       <mat-icon>add</mat-icon> Add Song
     </button>
+
   </div>
 
   <!-- Table Header -->

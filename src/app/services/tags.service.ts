@@ -17,6 +17,10 @@ export class TagsService {
     return this.http.get<TagView[]>( `http://localhost:8090/tag/substring/${substring}`, {});
   }
 
+  selectAll(): Observable<TagView[]> {
+    return this.http.get<TagView[]>( `http://localhost:8090/tag/all`, {});
+  }
+
   getTpsPerSong(urlKey: string): Observable<TagsPerSongView[]> {
     return this.http.get<TagsPerSongView[]>('http://localhost:8090/tag/links_per_song/' + urlKey, {});
   }
